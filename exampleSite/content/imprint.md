@@ -7,4 +7,8 @@ menu:
     weight: 1
 ---
 
-(Put your imprint here)
+● Powered by [Hugo](https://github.com/gohugoio/hugo/)
+
+● Theme by [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/)
+
+● Theme by [zero-dream/hugo-gallery](https://github.com/zero-dream/hugo-gallery/)
