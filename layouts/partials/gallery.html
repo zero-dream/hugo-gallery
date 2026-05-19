@@ -31,6 +31,7 @@
     {{ $publishResources := default true .Params.build.publishResources }}
     {{ range sort $images (.Params.sort_by | default "Name") (.Params.sort_order | default "asc") }}
       {{ $image := .image }}
+      {{ $image = partialCached "watermark.html" $image $image.RelPermalink }}
       {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process "fit 600x600")) }}
       {{ $full := $image.Filter (slice images.AutoOrient (images.Process "fit 1600x1600")) }}
       {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
