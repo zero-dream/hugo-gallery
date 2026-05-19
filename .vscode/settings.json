@@ -1,0 +1,8 @@
+{
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*index.md": "*.avif, *.bmp, *.gif, *.heic, *.heif, *.jpeg, *.jpg, *.png, *.tiff, *.tif, *.webp"
+  },
+}
