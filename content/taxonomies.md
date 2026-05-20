@@ -1,0 +1,4 @@
+---
+title: Taxonomies
+layout: taxonomies
+---
