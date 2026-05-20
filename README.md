@@ -1,15 +1,14 @@
-# Notice
+# Hugo Gallery Theme
 
 This project is developed based on [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/).
 
-# Hugo Gallery Theme
-
 A very simple and opinionated photo gallery theme for Hugo.
-
----
 
 ## Features
 
+- Add a watermark to the image
+- Top navigation bar pinned
+- Blur effect
 - Responsive design
 - Dark color scheme (can be set per page)
 - Private albums
@@ -22,14 +21,14 @@ A very simple and opinionated photo gallery theme for Hugo.
 
 ## Installation
 
-This theme requires Hugo Extended >= 0.123.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
+This theme requires Hugo Extended >= 0.146.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
 
 ### As a Hugo Module
 
 Requires the Go binary installed.
 
 ```sh
-hugo mod init github.com/<your_user>/<your_project>
+hugo mod init github.com/<owner>/<repo>
 ```
 
 Then add the theme to your `hugo.toml`:
@@ -47,6 +46,8 @@ git submodule add --depth=1 https://github.com/zero-dream/hugo-gallery.git theme
 ```
 
 ## Usage
+
+### Content Structure
 
 Page bundles which contain at least one image are listed as album or gallery:
 
@@ -223,7 +224,59 @@ By default, the homepage displays
 - the most recent featured content (even if private)
 - all non-private top-level albums
 
-This can easily be adjusted by using a local version of `layouts/_default/home.html`.
+This can easily be adjusted by using a local version of `layouts/home.html`.
+
+### Exclude original photos
+
+To exclude the original photos from the published site, and to disable the "Download" button, you can use the `build.publishResources` configuration option. Either add it to a specific album, or use `cascade` to omit the originals from all sub-albums. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
+
+```toml
+cascade:
+  build:
+    publishResources: false
+```
+
+## Hugo Config
+
+### Watermark
+
+Use the `watermark` configuration key to add watermarks to images on each page.
+
+`size` field is the coefficient that controls the watermark relative to the height of the original image.
+
+`x` field is the horizontal offset factor relative to the original image width
+
+`y` field is the vertical offset factor relative to the original image height.
+
+When `x & y` are in [0, 1], the watermark will not go beyond the image boundaries; when they are both 0.5, the watermark is centered.
+
+```toml
+[params]
+  ...
+  [params.watermark]
+    path = "images/watermark.png"
+    # The value range of the following field is [0,1]
+    opacity = 0.2
+    size = 0.05
+    x = 0.5
+    y = 0.5
+```
+
+### Social Icons
+
+Use the `socialIcons` configuration key to add social icons on the bottom of each page:
+
+```toml
+[params]
+  ...
+  [params.socialIcons]
+    facebook = "https://www.facebook.com/"
+    instagram = "https://www.instagram.com/"
+    github = "https://github.com/zero-dream/hugo-gallery/"
+    youtube = "https://www.youtube.com/"
+    email = "mailto:user@example.com"
+    linkedin = "https://linkedin.com/"
+```
 
 ### Related Content
 
@@ -254,31 +307,7 @@ Here is an example section in `config/_default/hugo.toml` to enable related cont
     weight = 50
 ```
 
-### Social Icons
-
-Use the `socialIcons` configuration key to add social icons on the bottom of each page:
-
-```toml
-[params]
-  ...
-  [params.socialIcons]
-    facebook = "https://www.facebook.com/"
-    instagram = "https://www.instagram.com/"
-    github = "https://github.com/zero-dream/hugo-gallery/"
-    youtube = "https://www.youtube.com/"
-    email = "mailto:user@example.com"
-    linkedin = "https://linkedin.com/"
-```
-
-### Exclude original photos
-
-To exclude the original photos from the published site, and to disable the "Download" button, you can use the `build.publishResources` configuration option. Either add it to a specific album, or use `cascade` to omit the originals from all sub-albums. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
-
-```toml
-cascade:
-  build:
-    publishResources: false
-```
+## Custom
 
 ### Custom CSS
 
