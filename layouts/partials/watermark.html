@@ -1,0 +1,28 @@
+{{ $image := . }}
+{{ $mark := resources.Get site.Params.watermark.path }}
+{{ $result := $image }}
+
+{{ if $mark }}
+  {{ $size := site.Params.watermark.size }}
+  {{ $markHeight := int (mul $image.Height $size) }}
+  {{ $resizedMark := ($mark.Resize (printf "x%d" $markHeight)) }}
+
+  {{ $x := float site.Params.watermark.x }}
+  {{ $y := float site.Params.watermark.y }}
+
+  {{ $offsetX := int (mul $x (sub $image.Width $resizedMark.Width)) }}
+  {{ $offsetY := int (mul $y (sub $image.Height $resizedMark.Height)) }}
+
+  {{ $opacity := float site.Params.watermark.opacity }}
+  {{ $opaqueMark := $resizedMark.Filter (images.Opacity $opacity) }}
+
+  {{ $result = $image.Filter (images.Overlay $opaqueMark $offsetX $offsetY) }}
+{{ else }}
+
+  {{ if site.Params.watermark }}
+    {{ errorf "watermark file not found: %s" site.Params.watermark.path }}
+  {{ end }}
+
+{{ end }}
+
+{{ return $result }}

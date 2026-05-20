@@ -155,3 +155,45 @@ body > footer > section {
     text-decoration-thickness: 2px;
   }
 }
+
+body > main > section.terms {
+  max-width: 1280px;
+
+  & > .title {
+    font-weight: bold;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-2);
+  }
+
+  & > .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 1.5rem;
+
+    & > .card-term {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+
+      & > .card-title {
+        font-weight: 600;
+        font-size: 1.125rem;
+        line-height: 1.375;
+      }
+
+      & > .card-body {
+        color: var(--text-2);
+        font-size: 0.875rem;
+        line-height: 1.4286;
+      }
+    }
+
+    & > .card-term:hover {
+      background-color: var(--hover);
+    }
+  }
+}
