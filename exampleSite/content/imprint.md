@@ -7,8 +7,6 @@ menu:
     weight: 1
 ---
 
-● Powered by [Hugo](https://github.com/gohugoio/hugo/)
+● Powered by {{< link-blank "Hugo" "https://github.com/gohugoio/hugo/" >}}.
 
-● Theme by [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/)
-
-● Theme by [zero-dream/hugo-gallery](https://github.com/zero-dream/hugo-gallery/)
+● Theme by {{< link-blank "ZeroDream" "https://github.com/zero-dream/hugo-gallery/" >}}, based on a theme by {{< link-blank "NicoKaiser" "https://github.com/nicokaiser/hugo-theme-gallery/" >}}.
