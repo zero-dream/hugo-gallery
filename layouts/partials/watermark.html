@@ -1,11 +1,8 @@
-{{/* Copyright (C) 2000 ZeroDream */}}
-
 {{ $image := . }}
 {{ $mark := resources.Get site.Params.watermark.path }}
 {{ $result := $image }}
 
 {{ if $mark }}
-
   {{ $size := site.Params.watermark.size }}
   {{ $markHeight := int (mul $image.Height $size) }}
   {{ $resizedMark := ($mark.Resize (printf "x%d" $markHeight)) }}
@@ -20,7 +17,6 @@
   {{ $opaqueMark := $resizedMark.Filter (images.Opacity $opacity) }}
 
   {{ $result = $image.Filter (images.Overlay $opaqueMark $offsetX $offsetY) }}
-
 {{ else }}
 
   {{ if site.Params.watermark }}
