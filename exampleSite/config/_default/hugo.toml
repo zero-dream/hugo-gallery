@@ -1,4 +1,3 @@
-copyright = "© Your Name"
 defaultContentLanguage = "en"
 disableKinds = ["taxonomy"]
 enableRobotsTXT = true
@@ -6,6 +5,11 @@ languageCode = "en"
 timeZone = "Europe/Berlin"
 timeout = "120s"
 title = "Gallery"
+
+copyright = """\
+© [ZeroDream](https://github.com/zero-dream/) · \
+Powered by [Hugo](https://github.com/gohugoio/hugo/) & [ZeroDream](https://github.com/zero-dream/hugo-gallery/)\
+"""
 
 [params]
   defaultTheme = "dark" # light dark
