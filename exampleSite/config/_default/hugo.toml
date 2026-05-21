@@ -13,7 +13,7 @@ Powered by [Hugo](https://github.com/gohugoio/hugo/) & [ZeroDream](https://githu
 [module]
   [module.hugoVersion]
     extended = true
-    min = "0.123.0"
+    min = "0.146.0"
   [[module.imports]]
     path = "github.com/zero-dream/hugo-gallery"
 

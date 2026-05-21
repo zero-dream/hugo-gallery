@@ -21,7 +21,7 @@ A very simple and opinionated photo gallery theme for Hugo.
 
 ## Installation
 
-This theme requires Hugo Extended >= 0.123.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
+This theme requires Hugo Extended >= 0.146.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
 
 ### As a Hugo Module
 
@@ -224,7 +224,7 @@ By default, the homepage displays
 - the most recent featured content (even if private)
 - all non-private top-level albums
 
-This can easily be adjusted by using a local version of `layouts/_default/home.html`.
+This can easily be adjusted by using a local version of `layouts/home.html`.
 
 ### Exclude original photos
 
