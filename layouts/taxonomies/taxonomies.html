@@ -1,14 +1,14 @@
 {{ define "main" }}
   {{ partial "title.html" . }}
 
-  {{ range $taxonomy, $termsMap := .Site.Taxonomies }}
-    {{ if $termsMap }}
+  {{ range $taxonomy, $terms := .Site.Taxonomies }}
+    {{ if $terms }}
       <section class="terms">
         <div class="title">
           {{ $taxonomy }}
         </div>
         <div class="list">
-          {{ range $term, $weightedPages := $termsMap }}
+          {{ range $term, $weightedPages := $terms }}
             {{ $pagePath := printf "/%s/%s" $taxonomy ($term | urlize) }}
             {{ partial "term-list.html" (dict
               "Term" $term
