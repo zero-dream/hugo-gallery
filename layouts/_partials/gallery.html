@@ -29,11 +29,13 @@
       }}
     {{ end }}
     {{ $publishResources := default true .Params.build.publishResources }}
+    {{ $thumbnailSize := printf "fit %s" (default "600x600" site.Params.imageSizes.thumbnail) }}
+    {{ $fullSize := printf "fit %s" (default "1600x1600" site.Params.imageSizes.full) }}
     {{ range sort $images (.Params.sort_by | default "Name") (.Params.sort_order | default "asc") }}
       {{ $image := .image }}
       {{ $image = partial "watermark.html" $image }}
-      {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process "fit 600x600")) }}
-      {{ $full := $image.Filter (slice images.AutoOrient (images.Process "fit 1600x1600")) }}
+      {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSize)) }}
+      {{ $full := $image.Filter (slice images.AutoOrient (images.Process $fullSize)) }}
       {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
       <a class="gallery-item" href="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" data-pswp-src="{{ $full.RelPermalink }}" data-pswp-width="{{ $full.Width }}" data-pswp-height="{{ $full.Height }}" data-pswp-target="{{ $image.Name | urlize }}" title="{{ .Title }}" itemscope itemtype="https://schema.org/ImageObject" style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
         <figure style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
