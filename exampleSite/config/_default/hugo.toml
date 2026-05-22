@@ -24,6 +24,15 @@ Powered by [Hugo](https://github.com/gohugoio/hugo/) & [ZeroDream](https://githu
   [params.author]
     email = "user@example.com"
     name = "Your Name"
+  [params.imageSizes]
+    thumbnail = "600x600"
+    full = "1600x1600"
+  [params.watermark]
+    path = "images/watermark.png"
+    opacity = 0.2
+    size = 0.05
+    x = 0.5
+    y = 0.5
   [params.socialIcons]
     facebook = "https://www.facebook.com/"
     instagram = "https://www.instagram.com/"
@@ -41,12 +50,6 @@ Powered by [Hugo](https://github.com/gohugoio/hugo/) & [ZeroDream](https://githu
     #boxSpacing = 10
     #targetRowHeight = 288
     #targetRowHeightTolerance = 0.25
-  [params.watermark]
-    path = "images/watermark.png"
-    opacity = 0.2
-    size = 0.05
-    x = 0.5
-    y = 0.5
 
 [menu]
   [[menu.footer]]
