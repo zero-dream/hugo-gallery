@@ -9,7 +9,7 @@ resources:
 menus:
   main:
     name: Home
-    weight: -1
+    weight: -9
 # sub-galleries on list pages are sorted by date and weight (descending)
 #cascade:
 #  build:
