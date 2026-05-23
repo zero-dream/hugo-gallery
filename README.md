@@ -7,8 +7,11 @@ A very simple and opinionated photo gallery theme for Hugo.
 ## Features
 
 - Add a watermark to the image
+- A page used to display all taxonomies
+- Custom download image
 - Top navigation bar pinned
 - Blur effect
+
 - Responsive design
 - Dark color scheme (can be set per page)
 - Private albums
@@ -86,12 +89,37 @@ content/
 - `date` -- album date, used for sorting (newest first).
 - `description` -- description shown on the album page. Rendered as markdown to enable adding links and some formatting.
 - `weight` -- can be used to adjust sort order.
-- `params.featured_image` -- name of the image file used for the album thumbnail. If not set, the first image which contains `feature` in its filename is used, otherwise the first image in the album. (Deprecated, use `resources.params.cover`)
 - `params.private` -- if set to `true`, this album is not shown in the album overview and is excluded from RSS feeds.
 - `params.featured` -- if set to `true`, this album is featured on the homepage (even if private).
 - `params.sort_by` -- property used for sorting images in an album. Default is `Name` (filename), but can also be `Date`.
 - `params.sort_order` -- sort order. Default is `asc`.
 - `params.theme` -- color theme for this page. Defaults to `defaultTheme` from configuration.
+- `params.featured_image` -- name of the image file used for the album thumbnail. If not set, the first image which contains `feature` in its filename is used, otherwise the first image in the album. (Deprecated, use `resources.params.cover`)
+
+### Featured Content on the Homepage
+
+Albums (and also taxonomy pages like categories) can be marked as "featured":
+
+```plain
+---
+title: Featured Album
+params:
+  featured: true
+---
+```
+
+When used in combination with `private: true` this album is only shown as featured album on the homepage, and not in any album list.
+
+Note that also categories or any other taxonomy term can be marked as featured, so you can feature a whole category, series, etc.
+
+By default, the homepage displays
+
+- the site title
+- links to all categories (if categories are enabled and used)
+- the most recent featured content (even if private)
+- all non-private top-level albums
+
+This can easily be adjusted by using a local version of `layouts/home.html`.
 
 ### Album Cover
 
@@ -117,6 +145,36 @@ resources:
     params:
       cover: true
       hidden: true
+---
+```
+
+### Categories
+
+If you use categories in your albums, the homepage displays a list of categories.
+Make sure `term` is not included in `disabledKinds` in the site config.
+
+content/dogs/index.md:
+
+```plain
+---
+date: 2023-01-12
+title: Dogs
+categories: ["animals", "nature"]
+resources:
+  - src: dogs-title-image.jpg
+    params:
+      cover: true
+---
+```
+
+Categories can also have custom titles and descriptions (by default, the "animals" category will have "Animals" as title and no description). Just create a `content/categories/<category>/_index.md`:
+
+content/categories/animals/\_index.md:
+
+```plain
+---
+title: Cute Animals
+description: This is the description text of the "animals" category.
 ---
 ```
 
@@ -161,86 +219,44 @@ resources:
 ---
 ```
 
-### Categories
+## Hugo Config
 
-If you use categories in your albums, the homepage displays a list of categories.
-Make sure `term` is not included in `disabledKinds` in the site config.
+### Exclude original images
 
-content/dogs/index.md:
+Exclude all original images from the published site, you can use the `build.publishResources` configuration option. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
 
-```plain
----
-date: 2023-01-12
-title: Dogs
-categories: ["animals", "nature"]
-resources:
-  - src: dogs-title-image.jpg
-    params:
-      cover: true
----
-```
-
-Categories can also have custom titles and descriptions (by default, the "animals" category will have "Animals" as title and no description). Just create a `content/categories/<category>/_index.md`:
-
-content/categories/animals/\_index.md:
-
-```plain
----
-title: Cute Animals
-description: This is the description text of the "animals" category.
----
-```
-
-#### List of Categories
-
-To enable a list of categories, each category must at least have an image in the `content/categories/<category>/` folder. Also, `taxonomy` must _not_ be included in the `disableKinds` in the site config.
-
-Then, `/categories` displays a list of categories, with their cover image.
-
-#### Other Taxonomies
-
-You can also use other taxonomies like `series`. Note that only `categories` and `tags` are enabled by Hugo's default settings. Using `series` as additional taxonomy is left as an exercise for the reader.
-
-### Featured Content on the Homepage
-
-Albums (and also taxonomy pages like categories) can be marked as "featured":
-
-```plain
----
-title: Featured Album
-params:
-  featured: true
----
-```
-
-When used in combination with `private: true` this album is only shown as featured album on the homepage, and not in any album list.
-
-Note that also categories or any other taxonomy term can be marked as featured, so you can feature a whole category, series, etc.
-
-By default, the homepage displays
-
-- the site title,
-- links to all categories (if categories are enabled and used)
-- the most recent featured content (even if private)
-- all non-private top-level albums
-
-This can easily be adjusted by using a local version of `layouts/home.html`.
-
-### Exclude original photos
-
-To exclude the original photos from the published site, and to disable the "Download" button, you can use the `build.publishResources` configuration option. Either add it to a specific album, or use `cascade` to omit the originals from all sub-albums. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
+**Note: The original image may not be completely excluded.** Improper use of the `.Permalink` or `.RelPermalink` methods may result in it being included. According to current tests, this is feasible.
 
 ```toml
-cascade:
-  build:
-    publishResources: false
+[[cascade]]
+  [cascade.build]
+    publishResources = false
 ```
 
-## Hugo Config
+You can also add it to a specific album, or use `cascade` to omit the original images from all sub-albums.
+
+### Custom download image
+
+Explicitly set whether the download function is enabled.
+
+If the `enable` field is not set, the value of the [`publishResources`](#exclude-original-images) field is used.
+
+If the `size` field is not set, the [`publishResources`](#exclude-original-images) field is used. When the value is `true`, the original image is downloaded; when `false`, the download feature is disabled.
+
+**Note:** If the `publishResources` field is not set, the default value is `true`.
+
+```toml
+[params]
+  [params.downImg]
+    enable = true
+    size = "3200x3200"
+```
 
 ### Watermark
 
-Use the `watermark` configuration key to add watermarks to images on each page.
+Add a watermark to each image.
+
+`path` field is relative to the `assets/` path.
 
 `size` field is the coefficient that controls the watermark relative to the height of the original image.
 
@@ -250,11 +266,12 @@ Use the `watermark` configuration key to add watermarks to images on each page.
 
 When `x & y` are in [0, 1], the watermark will not go beyond the image boundaries; when they are both 0.5, the watermark is centered.
 
+**Note:** If the watermark is set in the corner, it may be blocked by elements with the `overflow: hidden` property. The watermark has actually been added correctly, it is recommended to download the thumbnail for verification.
+
 ```toml
 [params]
-  ...
   [params.watermark]
-    path = "images/watermark.png"
+    path = "images/watermark.png" # assets/...
     # The value range of the following field is [0,1]
     opacity = 0.2
     size = 0.05
@@ -264,11 +281,10 @@ When `x & y` are in [0, 1], the watermark will not go beyond the image boundarie
 
 ### Social Icons
 
-Use the `socialIcons` configuration key to add social icons on the bottom of each page:
+Add social icons on the bottom of each page.
 
 ```toml
 [params]
-  ...
   [params.socialIcons]
     facebook = "https://www.facebook.com/"
     instagram = "https://www.instagram.com/"

@@ -17,6 +17,10 @@ Powered by [Hugo](https://github.com/gohugoio/hugo/) & [ZeroDream](https://githu
   [[module.imports]]
     path = "github.com/zero-dream/hugo-gallery"
 
+[[cascade]]
+  [cascade.build]
+    publishResources = false
+
 [params]
   defaultTheme = "dark" # light dark
   description = "Example site for hugo-theme-gallery"
@@ -31,7 +35,7 @@ Powered by [Hugo](https://github.com/gohugoio/hugo/) & [ZeroDream](https://githu
     enable = true
     size = "3200x3200"
   [params.watermark]
-    path = "images/watermark.png"
+    path = "images/watermark.png" # assets/...
     opacity = 0.2
     size = 0.05
     x = 0.5
