@@ -3,9 +3,10 @@
 
   {{ range $taxonomy, $terms := .Site.Taxonomies }}
     {{ if $terms }}
+      {{ $taxonomyPage := $.Site.GetPage (printf "/%s" $taxonomy) }}
       <section class="terms">
         <div class="title">
-          {{ $taxonomy }}
+          <a href="{{ $taxonomyPage.RelPermalink }}">{{ $taxonomy | humanize | title }}</a>
         </div>
         <div class="list">
           {{ range $term, $weightedPages := $terms }}
