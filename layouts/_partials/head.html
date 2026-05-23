@@ -21,6 +21,7 @@
   {{ partial "opengraph.html" . }}
   {{ $css := resources.Get "/css/main.scss" | toCSS | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+  {{ $.Store.Set "enableDownload" (default (default true .Params.build.publishResources) (.Param "downImg.enable")) }}
   {{ $params := dict
     "closeTitle" (i18n "closeTitle")
     "zoomTitle" (i18n "zoomTitle")
@@ -31,7 +32,7 @@
     "boxSpacing" (default 8 .Site.Params.gallery.boxSpacing)
     "targetRowHeight" (default 288 .Site.Params.gallery.targetRowHeight)
     "targetRowHeightTolerance" (default 0.25 .Site.Params.gallery.targetRowHeightTolerance)
-    "enableDownload" (default true .Params.build.publishResources)
+    "enableDownload" ($.Store.Get "enableDownload")
   }}
   {{ $js := resources.Get "js/main.js" | js.Build (dict "minify" true "params" $params) | resources.Fingerprint }}
   <script src="{{ $js.RelPermalink }}" defer></script>

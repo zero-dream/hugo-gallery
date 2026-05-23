@@ -1,6 +1,7 @@
 <section class="gallery">
   <div id="gallery" style="visibility: hidden; height: 1px; overflow: hidden">
     {{ $images := slice }}
+
     {{ range $image := where (.Resources.ByType "image") "Params.hidden" "ne" true }}
       {{ $title := "" }}
       {{ $date := "" }}
@@ -28,6 +29,7 @@
         )
       }}
     {{ end }}
+
     {{ $publishResources := default true .Params.build.publishResources }}
     {{ $thumbnailSize := printf "fit %s" (default "600x600" site.Params.imageSizes.thumbnail) }}
     {{ $fullSize := printf "fit %s" (default "1600x1600" site.Params.imageSizes.full) }}
@@ -37,11 +39,23 @@
       {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSize)) }}
       {{ $full := $image.Filter (slice images.AutoOrient (images.Process $fullSize)) }}
       {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-      <a class="gallery-item" href="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" data-pswp-src="{{ $full.RelPermalink }}" data-pswp-width="{{ $full.Width }}" data-pswp-height="{{ $full.Height }}" data-pswp-target="{{ $image.Name | urlize }}" title="{{ .Title }}" itemscope itemtype="https://schema.org/ImageObject" style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
+
+      {{ $downImg := $image }}
+      {{ if $.Store.Get "enableDownload" }}
+        {{ with .Params.downImg.size }}
+          {{ $downImgSize := printf "fit %s" . }}
+          {{ $downImg = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
+        {{ else }}
+          {{ $.Store.Set "enableDownload" (default true $.Params.build.publishResources) }}
+        {{ end }}
+      {{ end }}
+
+
+      <a class="gallery-item" href="{{ if $.Store.Get "enableDownload" }}{{ $downImg.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" data-pswp-src="{{ $full.RelPermalink }}" data-pswp-width="{{ $full.Width }}" data-pswp-height="{{ $full.Height }}" data-pswp-target="{{ $image.Name | urlize }}" title="{{ .Title }}" itemscope itemtype="https://schema.org/ImageObject" style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
         <figure style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
           <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ .Title }}" />
         </figure>
-        <meta itemprop="contentUrl" content="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" />
+        <meta itemprop="contentUrl" content="{{ if $.Store.Get "enableDownload" }}{{ $downImg.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" />
         {{ with site.Params.Author }}
           <span itemprop="creator" itemtype="https://schema.org/Person" itemscope>
             <meta itemprop="name" content="{{ site.Params.Author.name }}" />
@@ -49,5 +63,6 @@
         {{ end }}
       </a>
     {{ end }}
+
   </div>
 </section>

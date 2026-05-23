@@ -27,6 +27,9 @@ Powered by [Hugo](https://github.com/gohugoio/hugo/) & [ZeroDream](https://githu
   [params.imageSizes]
     thumbnail = "600x600"
     full = "1600x1600"
+  [params.downImg]
+    enable = true
+    size = "3200x3200"
   [params.watermark]
     path = "images/watermark.png"
     opacity = 0.2
