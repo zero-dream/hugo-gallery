@@ -1,8 +1,8 @@
 # Hugo Gallery Theme
 
-This project is developed based on [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/).
-
 A very simple and opinionated photo gallery theme for Hugo.
+
+This project is developed based on [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/).
 
 ## Features
 
@@ -15,8 +15,8 @@ A very simple and opinionated photo gallery theme for Hugo.
 - Responsive design
 - Dark color scheme (can be set per page)
 - Private albums
-- Justified album views with [Flickr's Justified Layout](https://github.com/flickr/justified-layout)
-- Lightbox with [PhotoSwipe](https://photoswipe.com/)
+- Justified album views with [flickr/justified-layout](https://github.com/flickr/justified-layout)
+- Lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
 - SEO with Open Graph tags
 - Automatic (or manual) selection of feature/cover images
 
@@ -325,9 +325,13 @@ Here is an example section in `config/_default/hugo.toml` to enable related cont
 
 ## Custom
 
+### Custom Head
+
+You can add additional elements to the `head` area in the `layouts/_partials/head-custom.html` file.
+
 ### Custom CSS
 
-CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/custom.css` (see example in `exampleSite`).
+CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/custom.scss` (see example in `exampleSite`).
 
 ### Custom JavaScript
 

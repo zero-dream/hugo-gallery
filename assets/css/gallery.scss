@@ -1,0 +1,11 @@
+@import "../lib/flickr-justified-gallery/fjGallery";
+
+body > main > section.gallery {
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  figure,
+  img {
+    border-radius: 0.5rem;
+  }
+}

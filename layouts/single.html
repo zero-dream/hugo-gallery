@@ -8,3 +8,25 @@
     </section>
   {{ end }}
 {{ end }}
+
+{{ define "head-assets" }}
+  {{ $params := dict }}
+  {{ partial "import/css.html" (dict "path" "css/gallery.scss") }}
+  {{ partial "import/js.html" (dict "path" "js/gallery.js" "params" $params) }}
+
+  {{ $.Store.Set "enableDownload" (.Param "downImg.enable" | default (.Params.build.publishResources | default true)) }}
+  {{ $params := dict
+    "closeTitle" (i18n "closeTitle")
+    "zoomTitle" (i18n "zoomTitle")
+    "arrowPrevTitle" (i18n "arrowPrevTitle")
+    "arrowNextTitle" (i18n "arrowNextTitle")
+    "errorMsg" (i18n "errorMsg")
+    "downloadTitle" (i18n "downloadTitle")
+    "boxSpacing" (.Site.Params.gallery.boxSpacing | default 8)
+    "targetRowHeight" (.Site.Params.gallery.targetRowHeight | default 288)
+    "targetRowHeightTolerance" (.Site.Params.gallery.targetRowHeightTolerance | default 0.25)
+    "enableDownload" ($.Store.Get "enableDownload")
+  }}
+  {{ partial "import/css.html" (dict "path" "css/photoswipe.scss") }}
+  {{ partial "import/js.html" (dict "path" "js/photoswipe.js" "params" $params) }}
+{{ end }}

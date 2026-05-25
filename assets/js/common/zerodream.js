@@ -3,13 +3,14 @@
 (function () {
   const body = document.body;
   const header = document.getElementById("header");
+  const nav = header.querySelector("nav");
   const toggle = document.getElementById("menu-toggle");
   toggle.addEventListener("click", function (event) {
     if (toggle.ariaExpanded === "true") {
-      header.classList.remove("header-blur");
+      nav.classList.remove("header-blur");
       body.style.overflow = "hidden";
     } else {
-      header.classList.add("header-blur");
+      nav.classList.add("header-blur");
       body.style.overflow = "";
     }
   });
