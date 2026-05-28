@@ -5,7 +5,7 @@
       {{ .Site.Copyright | markdownify }}
     </span>
     {{ range .Site.Menus.footer }}
-      <a {{ with .Params.rel -}}rel="{{ . }}"{{ end -}} href="{{ .URL }}">
+      <a {{ with .Params.rel }}rel="{{ . }}"{{ end }} href="{{ .URL }}">
         {{ .Name }}
       </a>
     {{ end }}

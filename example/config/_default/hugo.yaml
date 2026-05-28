@@ -1,0 +1,40 @@
+locale: "en-us"
+defaultContentLanguage: "en"
+timeZone: "Etc/UTC"
+enableRobotsTXT: true
+
+baseURL: "https://example.org/"
+
+title: "Gallery"
+copyright: >
+  © {{< link-blank "ZeroDream" "https://github.com/zero-dream/" >}} · 
+  Powered by {{< link-blank "Hugo" "https://github.com/gohugoio/hugo/" >}} & {{< link-blank "ZeroDream" "https://github.com/zero-dream/hugo-gallery/" >}}
+
+module:
+  hugoVersion:
+    extended: true
+    min: "0.162.0"
+  imports:
+    - path: "github.com/zero-dream/hugo-gallery"
+
+imaging:
+  quality: 75
+  resampleFilter: "CatmullRom"
+  exif:
+    disableDate: true
+    disableLatLong: true
+    excludeFields: ".*"
+
+outputs:
+  home:
+    - "HTML"
+    - "RSS"
+  section:
+    - "HTML"
+    - "RSS"
+  page:
+    - "HTML"
+
+services:
+  rss:
+    limit: 100

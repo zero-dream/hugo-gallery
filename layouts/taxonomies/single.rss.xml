@@ -1,16 +1,16 @@
 {{- $authorEmail := site.Params.author.email }}
 {{- $authorName := site.Params.author.name }}
 
-{{- $latestDate := time "0001-01-01" }}
+{{- $latestDate := time.AsTime "0001-01-01T00:00:00-00:00" }}
 
-{{- $items  := slice }}
+{{- $pages  := slice }}
 {{- range $taxonomy, $terms := .Site.Taxonomies }}
   {{- if $terms }}
     {{- range $term, $weightedPages := $terms }}
 
       {{- $pagePath := printf "/%s/%s" $taxonomy ($term | urlize) }}
       {{- $page := $.Site.GetPage $pagePath }}
-      {{- $items = $items | append (dict "taxonomy" $taxonomy "page" $page) }}
+      {{- $pages = $pages | append (dict "taxonomy" $taxonomy "page" $page) }}
 
       {{- range $weightedPages }}
         {{- if not .Date.IsZero }}
@@ -24,12 +24,12 @@
   {{- end }}
 {{- end }}
 
-{{- $items  = where $items  "Params.private" "ne" true }}
-{{- $items  = where $items  "Params.rss_ignore" "ne" true }}
+{{- $pages  = where $pages  "Params.private" "!=" true }}
+{{- $pages  = where $pages  "Params.rss_ignore" "!=" true }}
 
 {{- $limit := .Site.Config.Services.RSS.Limit }}
 {{- if ge $limit 1 }}
-  {{- $items  = $items  | first $limit }}
+  {{- $pages  = $pages  | first $limit }}
 {{- end }}
 
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
@@ -38,9 +38,9 @@
 
     <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content {{ if ne .Title .Site.Title }}{{ with .Title }}in {{ . }} {{ end }}{{ end }}on {{ .Site.Title }}</description>
+    <description>Recent content {{ if ne .Title .Site.Title }}{{ with .Title }} in {{ . }} {{ end }}{{ end }} on {{ .Site.Title }}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>{{ site.Language.LanguageCode }}</language>{{ with site.Params.author.email }}
+    <language>{{ site.Language.Locale }}</language>{{ with site.Params.author.email }}
     <managingEditor>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</managingEditor>{{ end }}{{ with $authorEmail }}
     <webMaster>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</webMaster>{{ end }}{{ with .Site.Copyright }}
     <copyright>{{ . }}</copyright>{{ end }}
@@ -49,7 +49,7 @@
     
     {{- with .OutputFormats.Get "RSS" }}{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}{{ end }}
 
-    {{- range $items  }}
+    {{- range $pages }}
       <item>
         <title>{{ .taxonomy | title }}-{{ .page.Title }}</title>
 
@@ -64,16 +64,10 @@
           {{- with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
           <guid>{{ .Permalink }}</guid>
 
-          {{- $images := .Resources.ByType "image" }}
-          {{- $index := 0 }}
-          {{- range $i, $image := $images }}
-            {{- if index $image.Params "cover" }}
-              {{- $index = $i }}
-            {{- end }}
-          {{- end }}
-          {{- $image := ($images.GetMatch (.Params.featured_image | default "*feature*")) | default (index $images $index) }}
-          {{- if $image }}
-            {{- $thumbnail := $image.Filter (slice images.AutoOrient (images.Process "fill 900x600")) }}
+          {{- $albumData := partial "album-data.html" . }}
+          {{- if $albumData.cover }}
+            {{- $rssAlbumCoverSpec := site.Params.imageSpec.rssAlbumCover }}
+            {{- $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $rssAlbumCoverSpec)) }}
             <media:content url="{{ $thumbnail.Permalink }}" type="image/jpeg"/>
             <description>
               &lt;img src=&quot;{{ $thumbnail.Permalink }}&quot; /&gt;

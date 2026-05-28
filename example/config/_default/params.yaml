@@ -1,0 +1,46 @@
+params:
+  # General
+  title: "Gallery"
+  description: "A uniquely styled Hugo photo gallery theme."
+  author:
+    name: "YourName"
+    email: "user@example.com"
+  defaultTheme: "light" # value: light; dark;
+
+  # .Param
+  sort_by: "title"
+  sort_order: "asc" # value: desc; asc;
+  downImage:
+    enable: true
+    spec: "fit 3200x3200"
+  gallery:
+    imageSpec:
+      thumbnail: "fit 600x600"
+      lightbox: "fit 1600x1600"
+    justified:
+      gutterH: 10
+      gutterV: 10
+      rowHeight: 320
+      rowHeightTolerance: 0.25
+    photoswipe:
+      enableCaption: true
+  watermark:
+    path: "images/watermark/watermark.png" # assets/...
+    opacity: 0.2
+    size: 0.05
+    x: 0.5
+    y: 0.5
+
+  # .Site.Params
+  imageSpec:
+    featured: "fit 1600x1600"
+    thumbnail: "fit 1200x1200"
+    openGraph: "fit 1600x1600"
+    rssAlbumCover: "fill 900x600"
+  socialIcons:
+    github: "https://github.com/zero-dream/hugo-gallery/"
+    facebook: "https://www.facebook.com/"
+    youtube: "https://www.youtube.com/"
+    email: "mailto:user@example.com"
+    whatsapp: "1234567890"
+    # icons: twitter instagram linkedin website mastodon pixelfed mixcloud flickr 500px

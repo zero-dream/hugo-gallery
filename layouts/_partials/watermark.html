@@ -1,26 +1,28 @@
-{{ $image := . }}
-{{ $mark := resources.Get site.Params.watermark.path }}
+{{ $image  := .image }}
+{{ $page := .page }}
+
+{{ $mark := resources.Get ($page.Param "watermark.path") }}
 {{ $result := $image }}
 
 {{ if $mark }}
-  {{ $size := site.Params.watermark.size }}
+  {{ $size := $page.Param "watermark.size" }}
   {{ $markHeight := int (mul $image.Height $size) }}
   {{ $resizedMark := ($mark.Resize (printf "x%d" $markHeight)) }}
 
-  {{ $x := float site.Params.watermark.x }}
-  {{ $y := float site.Params.watermark.y }}
+  {{ $x := float ($page.Param "watermark.x") }}
+  {{ $y := float ($page.Param "watermark.y") }}
 
   {{ $offsetX := int (mul $x (sub $image.Width $resizedMark.Width)) }}
   {{ $offsetY := int (mul $y (sub $image.Height $resizedMark.Height)) }}
 
-  {{ $opacity := float site.Params.watermark.opacity }}
+  {{ $opacity := float ($page.Param "watermark.opacity") }}
   {{ $opaqueMark := $resizedMark.Filter (images.Opacity $opacity) }}
 
   {{ $result = $image.Filter (images.Overlay $opaqueMark $offsetX $offsetY) }}
 {{ else }}
 
-  {{ if site.Params.watermark }}
-    {{ errorf "watermark file not found: %s" site.Params.watermark.path }}
+  {{ if $page.Param "watermark.path" }}
+    {{ errorf "watermark file not found: %s" ($page.Param "watermark.path") }}
   {{ end }}
 
 {{ end }}

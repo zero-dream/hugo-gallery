@@ -1,0 +1,28 @@
+params:
+  # General
+  defaultTheme: "light" # value: light; dark;
+
+  # .Param
+  sort_by: "title"
+  sort_order: "asc" # value: desc; asc;
+  downImage:
+    enable: true
+    spec: "fit 3200x3200"
+  gallery:
+    imageSpec:
+      thumbnail: "fit 600x600"
+      lightbox: "fit 1600x1600"
+    justified:
+      gutterH: 10
+      gutterV: 10
+      rowHeight: 320
+      rowHeightTolerance: 0.25
+    photoswipe:
+      enableCaption: true
+
+  # .Site.Params
+  imageSpec:
+    featured: "fit 1600x1600"
+    thumbnail: "fit 1200x1200"
+    openGraph: "fit 1600x1600"
+    rssAlbumCover: "fill 900x600"

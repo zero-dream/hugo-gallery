@@ -1,8 +1,18 @@
 {{ define "main" }}
   {{ partial "title.html" . }}
   <section class="galleries">
-    {{ range where .Pages "Params.private" "ne" true }}
+    {{ range where .Pages "Params.private" "!=" true }}
       {{ partial "album-card.html" . }}
     {{ end }}
   </section>
+  {{ with .Content }}
+    <section class="prose">
+      {{ . }}
+    </section>
+  {{ end }}
+{{ end }}
+
+{{ define "head-assets" }}
+  {{ $params := dict }}
+  {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 {{ end }}

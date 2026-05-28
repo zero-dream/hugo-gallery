@@ -1,0 +1,4 @@
+{{ $path := .path }}
+{{ $params := .params | default dict }}
+{{ $js := resources.Get $path | js.Build (dict "minify" true "params" $params) | resources.Fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
