@@ -1,27 +1,33 @@
+[example]: /example
+
 # Hugo Gallery Theme
 
-This project is developed based on [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/).
-
 A very simple and opinionated photo gallery theme for Hugo.
+
+This project is developed based on [nicokaiser/hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery/).
 
 ## Features
 
 - Add a watermark to the image
-- Top navigation bar pinned
+- A page used to display all taxonomies
+- Download image
 - Blur effect
+- Top navigation bar pinned
+
 - Responsive design
-- Dark color scheme (can be set per page)
+- Dark color scheme
 - Private albums
-- Justified album views with [Flickr's Justified Layout](https://github.com/flickr/justified-layout)
-- Lightbox with [PhotoSwipe](https://photoswipe.com/)
 - SEO with Open Graph tags
-- Automatic (or manual) selection of feature/cover images
+- Automatically or manually select the cover image
+- Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
+- Photoswipe and Lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
+- Lazy loader for images with [aFarkas/lazysizes](https://github.com/aFarkas/lazysizes)
 
 **Important note: do not try to use WebP images.** The golang WebP implementation used in Hugo has a bug which leads to wrong image levels (dull looking images) upon resize. See [nicokaiser/hugo-theme-gallery#102](https://github.com/nicokaiser/hugo-theme-gallery/issues/102) for more details.
 
 ## Installation
 
-This theme requires Hugo Extended >= 0.146.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
+This theme requires Hugo Extended >= 0.162.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
 
 ### As a Hugo Module
 
@@ -47,6 +53,8 @@ git submodule add --depth=1 https://github.com/zero-dream/hugo-gallery.git theme
 
 ## Usage
 
+Please refer to the [example][example] for details.
+
 ### Content Structure
 
 Page bundles which contain at least one image are listed as album or gallery:
@@ -54,264 +62,351 @@ Page bundles which contain at least one image are listed as album or gallery:
 ```plain
 content/
 ├── _index.md
-├── about.md             <-- not listed in album list
+├── about.md            <-- not listed in album list
 ├── animals/
 │   ├── _index.md
+│   ├── cover.jpeg      <-- animals album cover (must)
 │   ├── cats/
 │   |   ├── index.md
-│   |   ├── cat1.jpg
-│   |   └── feature.jpg  <-- album cover
-│   ├── dogs/
-│   |   ├── index.md
-│   |   ├── dog1.jpg     <-- album cover
-│   |   └── dog2.jpg
-│   └── feature.jpg
-├── bridge.jpg           <-- site thumbnail (OpenGraph, etc.)
+│   |   ├── cat1.jpeg   <-- cats album cover (first)
+│   |   ├── cat2.jpeg
+│   └── dogs/
+│       ├── index.md
+│       ├── dog1.jpeg   <-- dogs album cover (first)
+│       └── dog2.jpeg
+├── graph.jpeg          <-- site thumbnail (OpenGraph)
 └── nature/
-    ├── index.md         <-- contains `cover: true` for `tree.jpg`
-    ├── nature1.jpg
-    ├── nature2.jpg
-    └── tree.jpg         <-- album thumbnail
+    ├── index.md        <-- contains `cover: true` param for `tree.jpeg`
+    ├── nature1.jpeg
+    ├── nature2.jpeg
+    └── tree.jpeg       <-- nature album cover (param)
 ```
 
-- `/about.md` is not a Page Bundle and does not have image resources. It is not displayed in the album list.
-- `/nature` is a Leaf Bundle (has `index.md` and no children) => displayed as gallery (`single` layout).
-- `/animals` is a Branch Bundle (has `_index.md` and has children) => displayed as album list (`list` layout).
-- The image resource with `*feature*` in its name or the first image found is used as thumbnail image for album lists.
+- `/about.md`: Not a PageBundle and does not have image resources. It is not displayed in the album list.
+- `/animals`: A BranchBundle (has `_index.md` and has children) => Displayed as album list (`list` layout).
+- `/nature`: A LeafBundle (has `index.md` and no children) => Displayed as gallery (`single` layout).
 - Albums without an image are not shown.
+- Use the image with the param `cover: true` as thumbnail for album list; if not set, the first image will be used.
 
 ### Front matter
 
-- `title` -- title of the album, shown in the album list and on the album page.
-- `date` -- album date, used for sorting (newest first).
-- `description` -- description shown on the album page. Rendered as markdown to enable adding links and some formatting.
-- `weight` -- can be used to adjust sort order.
-- `params.featured_image` -- name of the image file used for the album thumbnail. If not set, the first image which contains `feature` in its filename is used, otherwise the first image in the album. (Deprecated, use `resources.params.cover`)
-- `params.private` -- if set to `true`, this album is not shown in the album overview and is excluded from RSS feeds.
-- `params.featured` -- if set to `true`, this album is featured on the homepage (even if private).
-- `params.sort_by` -- property used for sorting images in an album. Default is `Name` (filename), but can also be `Date`.
-- `params.sort_order` -- sort order. Default is `asc`.
-- `params.theme` -- color theme for this page. Defaults to `defaultTheme` from configuration.
+- `date`: (string) The date associated with the page, typically the creation date.
+- `draft`: (bool) Whether to disable rendering unless you pass the --buildDrafts flag to the hugo command.
+- `title`: (string) Title of the album, shown in the album list and on the album page.
+- `description`: (string) Render on the page as `markdown`, and also add to the `meta` elements in the `head` element.
+- `weight`: (int) The page weight, used to order the page within a page collection.
+- `params.private`: (bool) Whether to display the album in the album overview.
+- `params.featured`: (bool) Whether to display the album on the homepage (even if private).
+- `params.sort_by`: (string) Used to sort images in the gallery.
+- `params.sort_order`: (string) Sort order, desc(descending) order or asc(ascending) order.
+
+### Draft
+
+**Support:** cascade;
+
+Reports whether the given page is a draft as defined in front matter.
+
+`draft`: (bool) If set to `true`, Hugo does not publish draft pages when you build your project. To include draft pages when you build your project, use the --buildDrafts command line flag.
+
+```yaml
+---
+draft: true
+title: Draft Album
+---
+```
+
+### Private Album
+
+**Support:** cascade;
+
+The album will be built by Hugo, and it can be accessed using the corresponding URL.
+
+`private`: (bool) If set to `true`, setting the album to private will prevent it from appearing in lists, RSS, sitemaps, etc.
+
+```yaml
+---
+title: "Private Album"
+params:
+  private: true
+---
+```
+
+### Featured Content on the Homepage
+
+**Support:** cascade;
+
+Albums (and also taxonomy pages like categories) can be marked as `featured`:
+
+```yaml
+---
+title: "Featured Album"
+params:
+  featured: true
+---
+```
+
+When used in combination with `private: true` this album is only shown as featured album on the homepage, and not in any album list:
+
+```yaml
+---
+title: "Featured Album"
+params:
+  private: true
+  featured: true
+---
+```
 
 ### Album Cover
 
 By default, the cover image of an album is the first image in its folder. To select a specific image (which must be part of the album), use the `cover` resource parameter in the front matter:
 
-```plain
+```yaml
 ---
-title: Nature
+title: "Nature"
 resources:
-  - src: tree.jpg
+  - src: "tree.jpeg"
     params:
       cover: true
 ---
 ```
 
-You can hide images from the gallery and use them only as cover image:
+You can hide images from the gallery and use them only as a cover:
 
-```plain
+```yaml
 ---
-title: Nature
+title: "Nature"
 resources:
-  - src: nature-cover.jpg
+  - src: "nature-cover.jpeg"
     params:
       cover: true
       hidden: true
 ---
 ```
 
-### Image Metadata
-
-Image titles for the lightbox view are either taken from the `ImageDescription` EXIF tag, or the `title` in the resource metadata.
-
-EXIF tags can be written using software like Adobe Lightroom or by using command line tools like exiftool:
-
-```sh
-exiftool -ImageDescription="A closeup of a gray cat's face" cat-4.jpg
-```
-
-Alternatively, the image title can be set in the front matter:
-
-```plain
----
-date: 2024-02-18T14:12:44+0100
-title: Cats
-resources:
-  - src: cat-1.jpg
-    title: Brown tabby cat on white stairs
-    params:
-      date: 2024-02-18T13:04:30+0100
-  - src: cat-4.jpg
-    title: A closeup of a gray cat's face
----
-```
-
-This also enables custom ordering:
-
-```plain
----
-sort_by: Params.weight
-resources:
-  - src: image-1.jpg
-    params:
-      weight: 20
-  - src: image-2.jpg
-    params:
-      weight: 10
----
-```
-
 ### Categories
 
+**Support:** cascade;
+
 If you use categories in your albums, the homepage displays a list of categories.
-Make sure `term` is not included in `disabledKinds` in the site config.
 
-content/dogs/index.md:
+Make sure `term` is not included in `disableKinds` in the site config.
 
-```plain
+```yaml
 ---
-date: 2023-01-12
-title: Dogs
-categories: ["animals", "nature"]
-resources:
-  - src: dogs-title-image.jpg
-    params:
-      cover: true
+title: "Cats"
+categories: ["Animals"]
 ---
 ```
 
-Categories can also have custom titles and descriptions (by default, the "animals" category will have "Animals" as title and no description). Just create a `content/categories/<category>/_index.md`:
+By default, the "animals" category will have "Animals" as title and no description. You can have a custom title and description by simply creating `content/categories/<category>/_index.md`:
 
 content/categories/animals/\_index.md:
 
-```plain
+```yaml
 ---
-title: Cute Animals
-description: This is the description text of the "animals" category.
+title: "Cute Animals"
+description: "This is the description text of the <animals> category."
 ---
 ```
 
-#### List of Categories
+### Album Sorting
 
-To enable a list of categories, each category must at least have an image in the `content/categories/<category>/` folder. Also, `taxonomy` must _not_ be included in the `disableKinds` in the site config.
+The default sort order for page collections, follows this priority:
 
-Then, `/categories` displays a list of categories, with their cover image.
+- weight (ascending)
+- date (descending)
+- linkTitle falling back to title (ascending)
+- logical path (ascending)
 
-#### Other Taxonomies
+### Sort gallery images
 
-You can also use other taxonomies like `series`. Note that only `categories` and `tags` are enabled by Hugo's default settings. Using `series` as additional taxonomy is left as an exercise for the reader.
+**Support:** cascade;
 
-### Featured Content on the Homepage
+The default sorting of gallery images is based on `title` (filename), with the sorting order `asc` (ascending).
 
-Albums (and also taxonomy pages like categories) can be marked as "featured":
-
-```plain
+```yaml
 ---
-title: Featured Album
 params:
-  featured: true
+  sort_by: "title"
+  sort_order: "asc"
 ---
 ```
 
-When used in combination with `private: true` this album is only shown as featured album on the homepage, and not in any album list.
+You can also customize the sorting:
 
-Note that also categories or any other taxonomy term can be marked as featured, so you can feature a whole category, series, etc.
+`sort_by`: (string) Values: name; title; params.date; params.weight;
 
-By default, the homepage displays
+`sort_order`: (string) Values: desc(descending); asc(ascending);
 
-- the site title,
-- links to all categories (if categories are enabled and used)
-- the most recent featured content (even if private)
-- all non-private top-level albums
-
-This can easily be adjusted by using a local version of `layouts/home.html`.
-
-### Exclude original photos
-
-To exclude the original photos from the published site, and to disable the "Download" button, you can use the `build.publishResources` configuration option. Either add it to a specific album, or use `cascade` to omit the originals from all sub-albums. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
-
-```toml
-cascade:
-  build:
-    publishResources: false
+```yaml
+---
+params:
+  sort_by: "params.date"
+  sort_order: "asc"
+resources:
+  - src: "dog-1.jpeg"
+    name: "dog-1"
+    title: "Siberian Husky"
+    params:
+      date: "2026-01-02T08:00:00+01:00"
+      weight: 1
+  - src: "dog-2.jpeg"
+    name: "dog-2"
+    title: "Alaskan Malamute"
+    params:
+      date: "2026-01-02T09:00:00+01:00"
+      weight: 2
+---
 ```
 
 ## Hugo Config
 
+The file is located at `config/_default/hugo.yaml`.
+
+### Exclude original images
+
+**Support:** cascade;
+
+Exclude all original images from the published site, you can use the `build.publishResources` configuration option. With `publishResources: false` only the resized images (without any metadata) are included in the published site, which can save quite some disk space.
+
+**Note: The original image may not be completely excluded.** Improper use of the `.Permalink`, `.RelPermalink` or `Publish` methods may result in it being included.
+
+```yaml
+cascade:
+  - build:
+      publishResources: false
+```
+
+### Download image
+
+**Support:** cascade;
+
+Explicitly set whether the download function is enabled.
+
+`enable`: (bool) Whether to enable the download feature.
+
+`spec`: (string) If the value is an empty string `""`, use the value of the [`publishResources`](#exclude-original-images) field (when this value is `true`, download the original image; when `false`, download the lightbox image).
+
+```yaml
+params:
+  downImage:
+    enable: true
+    spec: "fit 3200x3200"
+```
+
+### Gallery
+
+**Support:** cascade;
+
+Gallery options.
+
+`justified.gutterH`: (int) Horizontal spacing between items.
+
+`justified.gutterV`: (int) Vertical spacing between items.
+
+`justified.rowHeight`: (int) Rows height.
+
+`justified.rowHeightTolerance`: (float) The value range is [0,1], how far row heights can stray from rowHeight. 0 would force rows to be the rowHeight exactly and would likely make it impossible to justify.
+
+`photoswipe.enableCaption`: (float) Whether to display caption content on the lightbox.
+
+```yaml
+params:
+  gallery:
+    imageSpec:
+      thumbnail: "fit 600x600"
+      lightbox: "fit 1600x1600"
+    justified:
+      gutterH: 10
+      gutterV: 10
+      rowHeight: 320
+      rowHeightTolerance: 0.25
+    photoswipe:
+      enableCaption: true
+```
+
 ### Watermark
 
-Use the `watermark` configuration key to add watermarks to images on each page.
+**Support:** cascade;
 
-`size` field is the coefficient that controls the watermark relative to the height of the original image.
+Add a watermark to each image.
 
-`x` field is the horizontal offset factor relative to the original image width
+`path`: (string) Relative to the `assets/` path.
 
-`y` field is the vertical offset factor relative to the original image height.
+`opacity`: (float) Control the opacity of the watermark image.
+
+`size`: (float) The coefficient that controls the watermark relative to the height of the original image.
+
+`x`: (float) The horizontal offset factor relative to the original image width
+
+`y`: (float) The vertical offset factor relative to the original image height.
 
 When `x & y` are in [0, 1], the watermark will not go beyond the image boundaries; when they are both 0.5, the watermark is centered.
 
-```toml
-[params]
-  ...
-  [params.watermark]
-    path = "images/watermark.png"
-    # The value range of the following field is [0,1]
-    opacity = 0.2
-    size = 0.05
-    x = 0.5
-    y = 0.5
+**Note:** If the watermark is set in the corner, it may be blocked by elements with the `overflow: hidden` property. The watermark has actually been correctly added. It is recommended to download the image for verification.
+
+```yaml
+params:
+  watermark:
+    path: "images/watermark/watermark.png"
+    # The value range of the following field is [0,1].
+    opacity: 0.2
+    size: 0.05
+    x: 0.5
+    y: 0.5
 ```
 
 ### Social Icons
 
-Use the `socialIcons` configuration key to add social icons on the bottom of each page:
+Add social icons on the bottom of each page.
 
-```toml
-[params]
-  ...
-  [params.socialIcons]
-    facebook = "https://www.facebook.com/"
-    instagram = "https://www.instagram.com/"
-    github = "https://github.com/zero-dream/hugo-gallery/"
-    youtube = "https://www.youtube.com/"
-    email = "mailto:user@example.com"
-    linkedin = "https://linkedin.com/"
+`icons`: twitter instagram linkedin website mastodon pixelfed mixcloud flickr 500px
+
+```yaml
+params:
+  socialIcons:
+    github: "https://github.com/zero-dream/hugo-gallery/"
+    facebook: "https://www.facebook.com/"
+    youtube: "https://www.youtube.com/"
+    email: "mailto:user@example.com"
+    whatsapp: "1234567890"
 ```
 
 ### Related Content
 
 If related content is available for your site (e.g. when keywords or tags are used), related albums are shown below each gallery. Read more about this in the [Hugo Docs](https://gohugo.io/content-management/related/#configure-related-content).
 
-Here is an example section in `config/_default/hugo.toml` to enable related content:
-
-```toml
-[related]
-  includeNewer = true
-  threshold = 10
-  toLower = false
-  [[related.indices]]
-    applyFilter = false
-    cardinalityThreshold = 0
-    name = 'categories'
-    pattern = ''
-    toLower = false
-    type = 'basic'
-    weight = 10
-  [[related.indices]]
-    applyFilter = false
-    cardinalityThreshold = 0
-    name = 'keywords'
-    pattern = ''
-    toLower = false
-    type = 'basic'
-    weight = 50
+```yaml
+related:
+  includeNewer: true
+  threshold: 10
+  toLower: false
+  indices:
+    - applyFilter: false
+      cardinalityThreshold: 0
+      name: "categories"
+      pattern: ""
+      toLower: false
+      type: "basic"
+      weight: 10
+    - applyFilter: false
+      cardinalityThreshold: 0
+      name: "keywords"
+      pattern: ""
+      toLower: false
+      type: "basic"
+      weight: 50
 ```
 
 ## Custom
 
+### Custom Head
+
+You can add additional `head` elements in `layouts/_partials/head-custom.html`.
+
 ### Custom CSS
 
-CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/custom.css` (see example in `exampleSite`).
+CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/custom.scss`.
 
 ### Custom JavaScript
 
