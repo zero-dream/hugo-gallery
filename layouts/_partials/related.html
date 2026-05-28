@@ -1,4 +1,4 @@
-{{ $related := where (site.RegularPages.Related .) "Params.private" "ne" true | first 3 }}
+{{ $related := where (site.RegularPages.Related .) "Params.private" "!=" true | first 3 }}
 {{ with $related }}
   <hgroup style="margin-top: 8rem">
     <h2>{{ T "relatedAlbums" }}</h2>
