@@ -3,8 +3,8 @@
   {{ $thumbnailSpec := site.Params.imageSpec.thumbnail }}
   {{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
   {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-  <a class="card" href="{{ $.RelPermalink }}" title="{{ $.Title }}">
-    <figure style="background-color: {{ $color }}">
+  <a class="album-card" href="{{ $.RelPermalink }}" title="{{ $.Title }}">
+    <figure style="background-color: {{ $color }};">
       <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $.Title }}" />
     </figure>
     <div>
