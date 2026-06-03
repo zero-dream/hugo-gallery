@@ -1,7 +1,7 @@
 {{ define "main" }}
   {{ partial "title.html" . }}
   <section class="terms">
-    <div class="list">
+    <div class="terms-list">
       {{ range .Data.Terms.Alphabetical }}
         {{ partial "term-list.html" (dict
           "Term" .Term

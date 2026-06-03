@@ -1,66 +1,63 @@
-<section class="gallery">
-  <div class="fj-gallery" id="gallery">
-    {{ $images := slice }}
-    {{ range $image := where (.Resources.ByType "image") "Params.hidden" "!=" true }}
-      {{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
-      {{ with $image.Params.date }}
-        {{ $date = time.AsTime . }}
+<section class="fj-gallery" id="gallery">
+  {{ $images := slice }}
+  {{ range $image := where (.Resources.ByType "image") "Params.hidden" "!=" true }}
+    {{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
+    {{ with $image.Params.date }}
+      {{ $date = time.AsTime . }}
+    {{ else }}
+      {{ with $image.Meta.Date }}
+        {{ $date = . }}
+      {{ end }}
+    {{ end }}
+    {{ $params := merge $image.Params (dict "date" $date) }}
+    {{ $images = $images | append (dict
+      "image" $image
+      "name" $image.Name
+      "title" $image.Title
+      "params" $params
+      )
+    }}
+  {{ end }}
+
+  {{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
+  {{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
+  {{ $enableCaption := $.Param "gallery.photoswipe.enableCaption" }}
+  {{ range sort $images (.Param "sort_by") (.Param "sort_order") }}
+    {{ $image := .image }}
+    {{ $name := .name }}
+    {{ $title := .title }}
+    {{ $params := .params }}
+    {{ $image = partial "watermark.html" (dict "image" $image "page" $) }}
+    {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
+    {{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
+    {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+
+    {{ $downImage := $image }}
+    {{ $enableDownload := $.Store.Get "enableDownload" }}
+    {{ if $enableDownload }}
+      {{ $spec := $.Param "downImage.spec" }}
+      {{ if eq $spec "" }}
+        {{ $enableDownload = $.Param "build.publishResources" }}
       {{ else }}
-        {{ with $image.Meta.Date }}
-          {{ $date = . }}
-        {{ end }}
+        {{ $downImgSize := $spec }}
+        {{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
       {{ end }}
-      {{ $params := merge $image.Params (dict "date" $date) }}
-      {{ $images = $images | append (dict
-        "image" $image
-        "name" $image.Name
-        "title" $image.Title
-        "params" $params
-        )
-      }}
     {{ end }}
-
-    {{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
-    {{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
-    {{ $enableCaption := $.Param "gallery.photoswipe.enableCaption" }}
-    {{ range sort $images (.Param "sort_by") (.Param "sort_order") }}
-      {{ $image := .image }}
-      {{ $name := .name }}
-      {{ $title := .title }}
-      {{ $params := .params }}
-      {{ $image = partial "watermark.html" (dict "image" $image "page" $) }}
-      {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
-      {{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
-      {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-
-      {{ $downImage := $image }}
-      {{ $enableDownload := $.Store.Get "enableDownload" }}
-      {{ if $enableDownload }}
-        {{ $spec := $.Param "downImage.spec" }}
-        {{ if eq $spec "" }}
-          {{ $enableDownload = $.Param "build.publishResources" }}
-        {{ else }}
-          {{ $downImgSize := $spec }}
-          {{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
-        {{ end }}
-      {{ end }}
-      <div class="fj-gallery-item">
-        <a class="gallery-item" href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}" title="{{ $title }}" itemscope itemtype="https://schema.org/ImageObject" style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
-          <figure style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
-            <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" />
-            {{ if $enableCaption }}
-              <span class="pswp-caption-content">{{ $title }}</span>
-            {{ end }}
-          </figure>
-          <meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
-          {{ with site.Params.Author }}
-            <span itemprop="creator" itemtype="https://schema.org/Person" itemscope>
-              <meta itemprop="name" content="{{ site.Params.Author.name }}" />
-            </span>
+    <div class="fj-gallery-item">
+      <a href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}" title="{{ $title }}" itemscope itemtype="https://schema.org/ImageObject" style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
+        <figure style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
+          <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" />
+          {{ if $enableCaption }}
+            <span class="pswp-caption-content">{{ $title }}</span>
           {{ end }}
-        </a>
-      </div>
-    {{ end }}
-
-  </div>
+        </figure>
+        <meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
+        {{ with site.Params.Author }}
+          <span itemprop="creator" itemtype="https://schema.org/Person" itemscope>
+            <meta itemprop="name" content="{{ site.Params.Author.name }}" />
+          </span>
+        {{ end }}
+      </a>
+    </div>
+  {{ end }}
 </section>

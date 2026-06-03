@@ -5,10 +5,10 @@
     {{ if $terms }}
       {{ $taxonomyPage := $.Site.GetPage (printf "/%s" $taxonomy) }}
       <section class="terms">
-        <div class="title">
+        <div class="terms-title">
           <a href="{{ $taxonomyPage.RelPermalink }}">{{ $taxonomy | humanize | title }}</a>
         </div>
-        <div class="list">
+        <div class="terms-list">
           {{ range $term, $weightedPages := $terms }}
             {{ $pagePath := printf "/%s/%s" $taxonomy ($term | urlize) }}
             {{ partial "term-list.html" (dict

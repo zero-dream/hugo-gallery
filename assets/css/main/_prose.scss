@@ -1,0 +1,76 @@
+.prose {
+  max-width: 768px;
+  color: var(--color-text-1);
+  font-size: 1rem;
+  line-height: 1.75;
+
+  a {
+    color: var(--color-text-1);
+    font-weight: 500;
+    text-decoration: underline;
+  }
+
+  p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  img {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  h3 {
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+    color: var(--color-text-1);
+    font-weight: 600;
+    font-size: 1.25em;
+    line-height: 1.6;
+  }
+
+  ul {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    padding-left: 1.625em;
+    list-style-type: disc;
+
+    & > li {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      padding-left: 0.375em;
+    }
+
+    li::marker {
+      color: var(--color-text-2);
+      font-variant-numeric: tabular-nums;
+      unicode-bidi: isolate;
+      text-align: start !important;
+      text-align-last: start !important;
+      text-indent: 0 !important;
+      text-transform: none;
+    }
+  }
+
+  h3 + * {
+    margin-top: 0;
+  }
+
+  figure {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  figure > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

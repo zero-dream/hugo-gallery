@@ -11,6 +11,7 @@
 
 {{ define "head-assets" }}
   {{ $params := dict }}
+  {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
   {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 
   {{ $params := dict
