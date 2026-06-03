@@ -8,7 +8,7 @@ const gallery = document.getElementById("gallery");
 if (gallery) {
   const lightbox = new PhotoSwipeLightbox({
     gallery,
-    children: ".gallery-item",
+    children: ".fj-gallery-item",
     showHideAnimationType: "zoom",
     bgOpacity: 1,
     pswpModule: PhotoSwipe,
@@ -55,8 +55,8 @@ if (gallery) {
   });
 
   new PhotoSwipeDynamicCaption(lightbox, {
-    captionContent: '.pswp-caption-content',
-    type: 'auto',
+    captionContent: ".pswp-caption-content",
+    type: "auto",
   });
 
   lightbox.init();
