@@ -9,10 +9,10 @@
     toggle.ariaExpanded = target.classList.contains("hidden");
     target.classList.toggle("hidden");
     if (toggle.ariaExpanded === "true") {
-      nav.classList.remove("header-blur");
+      nav.classList.remove("blur-01");
       body.style.overflow = "hidden";
     } else {
-      nav.classList.add("header-blur");
+      nav.classList.add("blur-01");
       body.style.overflow = "";
     }
   });
