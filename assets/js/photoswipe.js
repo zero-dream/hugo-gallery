@@ -12,7 +12,7 @@ if (gallery) {
     showHideAnimationType: "zoom",
     bgOpacity: 1,
     pswpModule: PhotoSwipe,
-    imageClickAction: "close",
+    imageClickAction: "zoom",
     closeTitle: params.closeTitle,
     zoomTitle: params.zoomTitle,
     arrowPrevTitle: params.arrowPrevTitle,
@@ -55,9 +55,8 @@ if (gallery) {
   });
 
   new PhotoSwipeDynamicCaption(lightbox, {
-    mobileLayoutBreakpoint: 700,
-    type: "auto",
-    mobileCaptionOverlapRatio: 1,
+    captionContent: '.pswp-caption-content',
+    type: 'auto',
   });
 
   lightbox.init();
