@@ -13,6 +13,7 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Download image
 - Blur effect
 - Top navigation bar pinned
+- Theme toggle
 
 - Responsive design
 - Dark color scheme
