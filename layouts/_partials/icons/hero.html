@@ -1,0 +1,17 @@
+{{ $name := .name }}
+{{ $type := .type }}
+{{ $heroIcons := site.Data.icons.hero }}
+
+{{ if eq $type "outline" }}
+  {{ with index $heroIcons.outline $name }}
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      {{ range .paths }}{{ . | safeHTML }}{{ end }}
+    </svg>
+  {{ end }}
+{{ else if eq $type "solid" }}
+  {{ with index $heroIcons.solid $name }}
+    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+      {{ range .paths }}{{ . | safeHTML }}{{ end }}
+    </svg>
+  {{ end }}
+{{ end }}

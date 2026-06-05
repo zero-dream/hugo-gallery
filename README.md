@@ -19,11 +19,15 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Private albums
 - SEO with Open Graph tags
 - Automatically or manually select the cover image
+
+**Important note: do not try to use WebP images.** The golang WebP implementation used in Hugo has a bug which leads to wrong image levels (dull looking images) upon resize. See [nicokaiser/hugo-theme-gallery#102](https://github.com/nicokaiser/hugo-theme-gallery/issues/102) for more details.
+
+## Used Project
+
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
 - Photoswipe and Lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
 - Lazy loader for images with [aFarkas/lazysizes](https://github.com/aFarkas/lazysizes)
-
-**Important note: do not try to use WebP images.** The golang WebP implementation used in Hugo has a bug which leads to wrong image levels (dull looking images) upon resize. See [nicokaiser/hugo-theme-gallery#102](https://github.com/nicokaiser/hugo-theme-gallery/issues/102) for more details.
+- Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
 
 ## Installation
 
