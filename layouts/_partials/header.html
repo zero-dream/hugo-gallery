@@ -9,6 +9,19 @@
     </ul>
 
     <ul>
+      <li>
+        <button class="btn btn-text" id="theme-toggle" theme="{{ site.Params.defaultTheme }}" type="button" title="{{ T "theme" }}">
+          <span class="icon icon-themeToggle-auto">
+            {{ partial "icons/hero.html" (dict "name" "clock" "type" "outline") }}
+          </span>
+          <span class="icon icon-themeToggle-light hidden">
+            {{ partial "icons/hero.html" (dict "name" "sun" "type" "outline") }}
+          </span>
+          <span class="icon icon-themeToggle-dark hidden">
+            {{ partial "icons/hero.html" (dict "name" "moon" "type" "outline") }}
+          </span>
+        </button>
+      </li>
       {{ if site.Menus.main }}
         <li>
           <button class="btn btn-text" id="menu-toggle" aria-expanded="false" type="button" title="{{ T "menu" }}">
