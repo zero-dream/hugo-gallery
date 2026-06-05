@@ -34,15 +34,30 @@ This theme requires Hugo Extended >= 0.162.0. Dependencies are bundled, so no No
 Requires the Go binary installed.
 
 ```sh
+hugo new project <repo>
+```
+
+Change to the `<repo>` directory under the current path.
+
+```sh
 hugo mod init github.com/<owner>/<repo>
 ```
 
-Then add the theme to your `hugo.toml`:
+Add the theme to the `hugo.yaml` config:
 
-```toml
-[module]
-  [[module.imports]]
-    path = "github.com/zero-dream/hugo-gallery"
+```yaml
+module:
+  hugoVersion:
+    extended: true
+    min: "0.162.0"
+  imports:
+    - path: "github.com/zero-dream/hugo-gallery"
+```
+
+Start Hugo’s development server.
+
+```sh
+hugo server
 ```
 
 ### As Git Submodule
