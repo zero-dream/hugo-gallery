@@ -5,7 +5,7 @@ params:
   author:
     name: "YourName"
     email: "user@example.com"
-  defaultTheme: "light" # value: light; dark;
+  defaultTheme: "auto" # value: auto; light; dark;
 
   # .Param
   sort_by: "title"

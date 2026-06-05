@@ -2,12 +2,13 @@
   const body = document.body;
   const header = document.getElementById("header");
   const nav = header.querySelector("nav");
+  const menu = document.getElementById("menu");
   const toggle = document.getElementById("menu-toggle");
   toggle.addEventListener("click", (event) => {
     event.preventDefault();
-    const target = document.getElementById("menu");
-    toggle.ariaExpanded = target.classList.contains("hidden");
-    target.classList.toggle("hidden");
+    toggle.ariaExpanded = menu.classList.contains("hidden");
+    menu.classList.toggle("hidden");
+
     if (toggle.ariaExpanded === "true") {
       nav.classList.remove("blur-01");
       body.style.overflow = "hidden";
