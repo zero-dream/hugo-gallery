@@ -49,13 +49,15 @@ body > header > nav {
   }
 }
 
-#menu-toggle[aria-expanded="true"] {
-  .icon-menu {
-    display: none;
-  }
+#menu-toggle {
+  &[aria-expanded="true"] {
+    .icon-menu {
+      display: none;
+    }
 
-  .icon-close {
-    display: block;
+    .icon-close {
+      display: block;
+    }
   }
 }
 
@@ -138,6 +140,32 @@ body > footer {
       &:hover {
         text-decoration-thickness: 2px;
       }
+    }
+  }
+}
+
+#theme-toggle {
+  &[theme="light"] {
+    .icon-themeToggle-auto {
+      display: none;
+    }
+    .icon-themeToggle-light {
+      display: block;
+    }
+    .icon-themeToggle-dark {
+      display: none;
+    }
+  }
+
+  &[theme="dark"] {
+    .icon-themeToggle-auto {
+      display: none;
+    }
+    .icon-themeToggle-light {
+      display: none;
+    }
+    .icon-themeToggle-dark {
+      display: block;
     }
   }
 }
