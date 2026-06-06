@@ -1,6 +1,6 @@
 {{ $name := .name }}
 {{ $type := .type }}
-{{ $heroIcons := site.Data.icons.hero }}
+{{ $heroIcons := hugo.Data.icons.hero }}
 
 {{ if eq $type "outline" }}
   {{ with index $heroIcons.outline $name }}
