@@ -1,8 +1,14 @@
 {{ define "main" }}
   {{ partial "title.html" . }}
+
   {{ with .Content }}
-    <section class="prose">
+    <article class="prose">
       {{ . }}
-    </section>
+    </article>
   {{ end }}
+
+{{ end }}
+
+{{ define "head-assets" }}
+  {{ partial "import/css.html" (dict "path" "/css/prose.css") }}
 {{ end }}

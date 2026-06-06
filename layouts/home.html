@@ -2,14 +2,25 @@
   {{ partial "title.html" . }}
   {{ partial "categories.html" }}
   {{ partial "featured.html" . }}
+
+
   <section class="galleries">
     {{ range where .Pages "Params.private" "!=" true }}
       {{ partial "album-card.html" . }}
     {{ end }}
   </section>
+
+  {{ with .Content }}
+    <article class="prose">
+      {{ . }}
+    </article>
+  {{ end }}
+
 {{ end }}
 
 {{ define "head-assets" }}
+  {{ partial "import/css.html" (dict "path" "/css/prose.css") }}
+
   {{ $params := dict }}
   {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
   {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
