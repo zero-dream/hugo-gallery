@@ -8,34 +8,40 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 
 ## Features
 
-- Add a watermark to the image
-- A page used to display all taxonomies
+- Justified images gallery
+- Image lightbox
+
 - Download image
+- Add a watermark to the image
+- SEO with Open Graph tags
+- Custom select cover image
+- A page used to display all taxonomies
+
+- Private albums
+- Dark color scheme
+- Theme toggle
+- Responsive design
+- Image lazysizes
+
 - Blur effect
 - Top navigation bar pinned
-- Theme toggle
-
-- Responsive design
-- Dark color scheme
-- Private albums
-- SEO with Open Graph tags
-- Automatically or manually select the cover image
 
 **Important note: do not try to use WebP images.** The golang WebP implementation used in Hugo has a bug which leads to wrong image levels (dull looking images) upon resize. See [nicokaiser/hugo-theme-gallery#102](https://github.com/nicokaiser/hugo-theme-gallery/issues/102) for more details.
 
 ## Used Project
 
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
-- Photoswipe and Lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
+- Photoswipe and lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
 - Lazy loader for images with [aFarkas/lazysizes](https://github.com/aFarkas/lazysizes)
+- Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 - Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
 - Prose typography with [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
 
-## Installation
+## Hugo Modules
 
 This theme requires Hugo Extended >= 0.162.0. Dependencies are bundled, so no Node.js/NPM and PostCSS is needed.
 
-### As a Hugo Module
+### Installation
 
 Requires the Go binary installed.
 
@@ -66,10 +72,20 @@ Start Hugo’s development server.
 hugo server
 ```
 
-### As Git Submodule
+### Update A Module
+
+To update a module to the latest version:
 
 ```sh
-git submodule add --depth=1 https://github.com/zero-dream/hugo-gallery.git themes/gallery
+hugo mod get -u github.com/zero-dream/hugo-gallery
+```
+
+### Update All Modules
+
+To update all modules to the latest version:
+
+```sh
+hugo mod get -u
 ```
 
 ## Usage
@@ -423,12 +439,12 @@ related:
 
 ### Custom Head
 
-You can add additional `head` elements in `layouts/_partials/head-custom.html`.
+You can add additional `head` elements in `layouts/_partials/common/head-custom.html`.
 
 ### Custom CSS
 
-CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/custom.scss`.
+CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/common/custom.scss`.
 
 ### Custom JavaScript
 
-You can add additional JavaScript in `assets/js/custom.js`.
+You can add additional JavaScript in `assets/js/common/custom.js`.
