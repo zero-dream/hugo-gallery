@@ -1,16 +1,15 @@
 <!doctype html>
-{{ $theme := .Site.Params.defaultTheme }}
-<html class="{{ if (eq $theme "light") }}light{{ else if (eq $theme "dark") }}dark{{ end }}" lang="{{ site.Language.Locale | default "en" }}">
+<html class="{{ site.Params.defaultTheme }}" lang="{{ site.Language.Locale | default "en" }}">
   <head>
-    {{ partial "head.html" . }}
+    {{ partial "common/head.html" . }}
     {{ block "head-assets" . }}{{ end }}
-    {{ partial "head-custom.html" . }}
+    {{ partial "common/head-custom.html" . }}
   </head>
   <body>
-    {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
+    {{ block "header" . }}{{ partial "common/header.html" . }}{{ end }}
     <main>
       {{ block "main" . }}{{ end }}
     </main>
-    {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
+    {{ block "footer" . }}{{ partialCached "common/footer.html" . }}{{ end }}
   </body>
 </html>

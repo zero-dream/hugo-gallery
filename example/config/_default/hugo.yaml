@@ -1,7 +1,8 @@
 locale: "en-us"
-defaultContentLanguage: "en"
 timeZone: "Etc/UTC"
 enableRobotsTXT: true
+
+defaultContentLanguage: "en"
 
 baseURL: "https://example.org/"
 
@@ -25,6 +26,10 @@ imaging:
     disableLatLong: true
     excludeFields: ".*"
 
+services:
+  rss:
+    limit: 100
+
 outputs:
   home:
     - "HTML"
@@ -34,7 +39,3 @@ outputs:
     - "RSS"
   page:
     - "HTML"
-
-services:
-  rss:
-    limit: 100

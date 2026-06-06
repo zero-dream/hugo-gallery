@@ -1,12 +1,10 @@
 {{ define "main" }}
   {{ partial "title.html" . }}
-
   {{ with .Content }}
     <article class="prose">
       {{ . }}
     </article>
   {{ end }}
-
 {{ end }}
 
 {{ define "head-assets" }}

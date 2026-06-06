@@ -2,13 +2,11 @@
   {{ partial "title.html" . }}
   {{ partial "gallery.html" . }}
   {{ partial "related.html" . }}
-
   {{ with .Content }}
     <article class="prose">
       {{ . }}
     </article>
   {{ end }}
-
 {{ end }}
 
 {{ define "head-assets" }}

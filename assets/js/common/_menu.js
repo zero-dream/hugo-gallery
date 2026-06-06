@@ -2,8 +2,11 @@
   const body = document.body;
   const header = document.getElementById("header");
   const nav = header.querySelector("nav");
-  const menu = document.getElementById("menu");
   const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu");
+
+  if (!toggle) return;
+
   toggle.addEventListener("click", (event) => {
     event.preventDefault();
     toggle.ariaExpanded = menu.classList.contains("hidden");

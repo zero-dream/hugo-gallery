@@ -5,6 +5,8 @@
   const proseElems = document.querySelectorAll(".prose");
   const darkMedia = window.matchMedia("(prefers-color-scheme: dark)");
 
+  if (!themeToggle) return;
+
   const isInvert = (theme) => {
     if (theme === "light") return false;
     if (theme === "dark") return true;
@@ -24,10 +26,6 @@
     invertProse(theme);
   };
 
-  darkMedia.addEventListener("change", (event) => {
-    if (html.classList.contains("auto")) invertProse("auto");
-  });
-
   const saved = localStorage.getItem("customTheme") || themeToggle.getAttribute("theme");
   setTheme(saved);
 
@@ -35,5 +33,9 @@
     const current = themeToggle.getAttribute("theme");
     const nextIndex = (themes.indexOf(current) + 1) % themes.length;
     setTheme(themes[nextIndex]);
+  });
+
+  darkMedia.addEventListener("change", (event) => {
+    if (html.classList.contains("auto")) invertProse("auto");
   });
 })();

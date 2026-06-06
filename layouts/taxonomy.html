@@ -1,9 +1,9 @@
 {{ define "main" }}
   {{ partial "title.html" . }}
   <section class="terms">
-    <div class="terms-list">
+    <div class="term-list">
       {{ range .Data.Terms.Alphabetical }}
-        {{ partial "term-list.html" (dict
+        {{ partial "term-card.html" (dict
           "Term" .Term
           "Pages" .Pages
           "Count" .Count
