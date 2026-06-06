@@ -20,7 +20,7 @@ params:
     photoswipe:
       enableCaption: true
 
-  # .Site.Params
+  # site.Params
   imageSpec:
     featured: "fit 1600x1600"
     thumbnail: "fit 1200x1200"
