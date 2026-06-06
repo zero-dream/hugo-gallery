@@ -177,11 +177,11 @@ hgroup {
   margin: 0 auto var(--gap-main);
   max-width: 1024px;
   text-align: center;
+
   h1 {
     font-weight: 600;
     font-size: clamp(2rem, calc(1.667rem + 1.481vw), 3rem);
     line-height: clamp(2.25rem, calc(1.833rem + 1.852vw), 3.5rem);
-    text-wrap: balance;
     text-shadow: var(--text-shadow-md);
   }
 
@@ -189,18 +189,16 @@ hgroup {
     font-weight: 600;
     font-size: clamp(1.5rem, calc(1.333rem + 0.741vw), 2rem);
     line-height: clamp(1.75rem, calc(1.5rem + 1.111vw), 2.5rem);
-    text-wrap: balance;
   }
 
   p {
     color: var(--color-text-2);
     font-size: 1.0625rem;
     line-height: 1.5556;
-    text-wrap: balance;
   }
 
   @media (min-width: 640px) {
-    width: 80%;
+    max-width: 65ch;
   }
 }
 

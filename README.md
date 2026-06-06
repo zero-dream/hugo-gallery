@@ -35,6 +35,7 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Lazy loader for images with [aFarkas/lazysizes](https://github.com/aFarkas/lazysizes)
 - Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 - Some icons with [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
+- Prose typography with [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
 
 ## Installation
 
