@@ -25,10 +25,10 @@
       {{ if site.Menus.main }}
         <li>
           <button class="btn btn-text" id="menu-toggle" aria-expanded="false" type="button" title="{{ T "menu" }}">
-            <span class="icon icon-menu">
+            <span class="icon icon-menuToggle-bars">
               {{ partial "icons/hero.html" (dict "name" "bars-3" "type" "outline") }}
             </span>
-            <span class="icon icon-close hidden">
+            <span class="icon icon-menuToggle-xmark hidden">
               {{ partial "icons/hero.html" (dict "name" "x-mark" "type" "outline") }}
             </span>
           </button>

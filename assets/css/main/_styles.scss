@@ -11,7 +11,7 @@ body {
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-body-bg);
+  background-color: var(--color-bg-body);
   color: var(--color-text-1);
 }
 
@@ -51,11 +51,10 @@ body > header > nav {
 
 #menu-toggle {
   &[aria-expanded="true"] {
-    .icon-menu {
+    .icon-menuToggle-bars {
       display: none;
     }
-
-    .icon-close {
+    .icon-menuToggle-xmark {
       display: block;
     }
   }
@@ -178,12 +177,12 @@ hgroup {
   margin: 0 auto var(--gap-main);
   max-width: 1024px;
   text-align: center;
-
   h1 {
     font-weight: 600;
     font-size: clamp(2rem, calc(1.667rem + 1.481vw), 3rem);
     line-height: clamp(2.25rem, calc(1.833rem + 1.852vw), 3.5rem);
     text-wrap: balance;
+    text-shadow: var(--text-shadow-md);
   }
 
   h2 {

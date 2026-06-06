@@ -1,6 +1,5 @@
 <!doctype html>
-{{ $theme := .Site.Params.defaultTheme }}
-<html class="{{ if (eq $theme "light") }}light{{ else if (eq $theme "dark") }}dark{{ end }}" lang="{{ site.Language.Locale | default "en" }}">
+<html class="{{ site.Params.defaultTheme }}" lang="{{ site.Language.Locale | default "en" }}">
   <head>
     {{ partial "head.html" . }}
     {{ block "head-assets" . }}{{ end }}
