@@ -4,7 +4,6 @@ html {
 }
 
 body {
-  padding-top: 8rem;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -25,9 +24,9 @@ body > header > nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
   width: 100%;
   min-height: 4rem;
+  padding: var(--gap-1);
 
   ul {
     display: inline-flex;
@@ -38,7 +37,7 @@ body > header > nav {
       justify-content: center;
 
       .header-title {
-        font-size: 1.25rem;
+        font-size: var(--text-xl-font-size);
       }
 
       .icon {
@@ -74,8 +73,8 @@ body > header > menu {
 
   color: var(--color-text-2);
   font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.4;
+  font-size: var(--text-xl-font-size);
+  line-height: var(--text-xl-line-height);
   user-select: none;
   text-align: center;
   scrollbar-gutter: stable;
@@ -110,19 +109,18 @@ body > main {
   height: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 8rem var(--gap-2) var(--gap-2);
 }
 
 body > footer {
   color: var(--color-text-2);
-  font-size: 0.875rem;
-  line-height: 1.4286;
-  padding: 0 1.5rem;
+  font-size: var(--text-sm-font-size);
+  line-height: var(--text-sm-line-height);
 
   display: flex;
   flex-direction: column;
   gap: var(--gap-footer);
-  margin: 0 0 var(--gap-footer) 0;
+  padding: 0 var(--gap-2) var(--gap-footer);
 
   & > section {
     display: flex;
@@ -180,21 +178,21 @@ hgroup {
 
   h1 {
     font-weight: 600;
-    font-size: clamp(2rem, calc(1.667rem + 1.481vw), 3rem);
-    line-height: clamp(2.25rem, calc(1.833rem + 1.852vw), 3.5rem);
+    font-size: var(--text-4xl-font-size);
+    line-height: var(--text-4xl-line-height);
     text-shadow: var(--text-shadow-md);
   }
 
   h2 {
     font-weight: 600;
-    font-size: clamp(1.5rem, calc(1.333rem + 0.741vw), 2rem);
-    line-height: clamp(1.75rem, calc(1.5rem + 1.111vw), 2.5rem);
+    font-size: var(--text-2xl-font-size);
+    line-height: var(--text-2xl-line-height);
   }
 
   p {
     color: var(--color-text-2);
-    font-size: 1.0625rem;
-    line-height: 1.5556;
+    font-size: var(--text-md-font-size);
+    line-height: var(--text-md-line-height);
   }
 
   @media (min-width: 640px) {

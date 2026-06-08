@@ -37,6 +37,8 @@ body > main > section.galleries {
       width: 100%;
       border-radius: 1rem;
       overflow: hidden;
+      box-shadow: var(--box-shadow-lg);
+      transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
 
       & > img {
         display: block;
@@ -46,6 +48,7 @@ body > main > section.galleries {
       }
 
       &:hover {
+        transform: scale(1.02);
         box-shadow: var(--box-shadow-xl);
       }
     }
@@ -59,14 +62,14 @@ body > main > section.galleries {
 
       & > h2 {
         font-weight: 600;
-        font-size: 1.125rem;
-        line-height: 1.375;
+        font-size: var(--text-lg-font-size);
+        line-height: var(--text-lg-line-height);
       }
 
       & > p {
         color: var(--color-text-2);
-        font-size: 0.875rem;
-        line-height: 1.4286;
+        font-size: var(--text-sm-font-size);
+        line-height: var(--text-sm-line-height);
       }
     }
   }
@@ -120,13 +123,13 @@ body > main > section.featured {
 
       & > h2 {
         font-weight: 600;
-        font-size: clamp(1.5rem, calc(1.375rem + 0.556vw), 1.875rem);
-        line-height: 1.2;
+        font-size: var(--text-2xl-font-size);
+        line-height: var(--text-2xl-line-height);
       }
 
       & > p {
-        font-size: 0.875rem;
-        line-height: 1.4286;
+        font-size: var(--text-sm-font-size);
+        line-height: var(--text-sm-line-height);
       }
     }
 
@@ -139,12 +142,12 @@ body > main > section.featured {
 body > main > section.terms {
   & > .terms-title {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: var(--text-2xl-font-size);
     margin-bottom: 1rem;
     color: var(--color-text-2);
   }
 
-  & > .terms-list {
+  & > .term-list {
     display: flex;
     flex-wrap: wrap;
     gap: var(--gap-2);
@@ -159,14 +162,14 @@ body > main > section.terms {
 
       & > .card-title {
         font-weight: 600;
-        font-size: 1.125rem;
-        line-height: 1.375;
+        font-size: var(--text-lg-font-size);
+        line-height: var(--text-lg-line-height);
       }
 
       & > .card-body {
         color: var(--color-text-2);
-        font-size: 0.875rem;
-        line-height: 1.4286;
+        font-size: var(--text-sm-font-size);
+        line-height: var(--text-sm-line-height);
       }
 
       &:hover {

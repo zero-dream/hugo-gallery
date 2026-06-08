@@ -429,12 +429,12 @@ related:
 
 ### Custom Head
 
-You can add additional `head` elements in `layouts/_partials/head-custom.html`.
+You can add additional `head` elements in `layouts/_partials/common/head-custom.html`.
 
 ### Custom CSS
 
-CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/custom.scss`.
+CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/common/custom.scss`.
 
 ### Custom JavaScript
 
-You can add additional JavaScript in `assets/js/custom.js`.
+You can add additional JavaScript in `assets/js/common/custom.js`.
