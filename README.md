@@ -438,3 +438,11 @@ CSS is generated with Hugo Pipes, so you can add additional CSS in `assets/css/c
 ### Custom JavaScript
 
 You can add additional JavaScript in `assets/js/common/custom.js`.
+
+## Handle
+
+### Local Storage
+
+Each build will clear the `localStorage` under the current domain.
+
+- Custom toggled themes will be reset.
