@@ -26,6 +26,6 @@
 {{ partial "import/css.html" (dict "path" "/css/common/main.scss") }}
 {{ partial "import/css.html" (dict "path" "/css/common/custom.scss") }}
 
-{{ $params := dict }}
+{{ $params := dict "buildTime" now.Unix }}
 {{ partial "import/js.html" (dict "path" "js/common/main.js" "params" $params) }}
 {{ partial "import/js.html" (dict "path" "js/common/custom.js" "params" $params) }}
