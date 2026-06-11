@@ -7,3 +7,6 @@ fjGallery(document.querySelectorAll(".fj-gallery"), {
   rowHeight: params.rowHeight,
   rowHeightTolerance: params.rowHeightTolerance,
 });
+
+const galleryEl = document.getElementById("gallery");
+galleryEl.classList.remove("hidden");
