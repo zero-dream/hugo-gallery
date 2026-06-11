@@ -14,10 +14,6 @@
 {{ define "head-assets" }}
   {{ partial "import/css.html" (dict "path" "/css/prose.css") }}
 
-  {{ $params := dict }}
-  {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
-  {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
-
   {{ $params := dict
     "gutterH" (.Param "gallery.justified.gutterH")
     "gutterV" (.Param "gallery.justified.gutterV")
@@ -26,6 +22,10 @@
   }}
   {{ partial "import/css.html" (dict "path" "css/gallery.scss") }}
   {{ partial "import/js.html" (dict "path" "js/gallery.js" "params" $params) }}
+
+  {{ $params := dict }}
+  {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
+  {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 
   {{ $enableDownload := .Param "downImage.enable" }}
   {{ .Store.Set "enableDownload" $enableDownload }}

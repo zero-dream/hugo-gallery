@@ -1,4 +1,4 @@
-<section class="fj-gallery" id="gallery">
+<section class="fj-gallery hidden" id="gallery">
   {{ $images := slice }}
   {{ range $image := where (.Resources.ByType "image") "Params.hidden" "!=" true }}
     {{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
@@ -43,21 +43,19 @@
         {{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
       {{ end }}
     {{ end }}
-    <div class="fj-gallery-item">
-      <a href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}" title="{{ $title }}" itemscope itemtype="https://schema.org/ImageObject" style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
-        <figure style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
-          <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" />
-          {{ if $enableCaption }}
-            <span class="pswp-caption-content">{{ $title }}</span>
-          {{ end }}
-        </figure>
-        <meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
-        {{ with site.Params.Author }}
-          <span itemprop="creator" itemtype="https://schema.org/Person" itemscope>
-            <meta itemprop="name" content="{{ site.Params.Author.name }}" />
-          </span>
+    <a class="fj-gallery-item" href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}" title="{{ $title }}">
+      <figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
+        <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" />
+        {{ if $enableCaption }}
+          <span class="pswp-caption-content">{{ $title }}</span>
         {{ end }}
-      </a>
-    </div>
+      </figure>
+      <meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
+      {{ with site.Params.Author }}
+        <span itemprop="creator" itemscope itemtype="https://schema.org/Person">
+          <meta itemprop="name" content="{{ site.Params.Author.name }}" />
+        </span>
+      {{ end }}
+    </a>
   {{ end }}
 </section>
