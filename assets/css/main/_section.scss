@@ -4,12 +4,9 @@ body > main > section {
 
 body > main > section.fj-gallery {
   & > .fj-gallery-item {
+    cursor: zoom-in;
     overflow: hidden;
     border-radius: 0.5rem;
-
-    & > a {
-      cursor: zoom-in;
-    }
   }
 }
 
