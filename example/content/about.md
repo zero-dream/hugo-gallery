@@ -2,11 +2,13 @@
 title: "About"
 
 layout: "prose"
-rss_ignore: true
 
 menu:
   footer:
     weight: 2
+
+params:
+  rss_ignore: true
 ---
 
 A uniquely styled Hugo photo gallery theme.
