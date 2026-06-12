@@ -1,5 +1,22 @@
-{{- $authorEmail := site.Params.author.email }}
-{{- $authorName := site.Params.author.name }}
+{{- $authorEmail := "" }}
+{{- with site.Params.author }}
+	{{- if reflect.IsMap . }}
+		{{- with .email }}
+			{{- $authorEmail = . }}
+		{{- end }}
+	{{- end }}
+{{- end }}
+
+{{- $authorName := "" }}
+{{- with site.Params.author }}
+	{{- if reflect.IsMap . }}
+		{{- with .name }}
+			{{- $authorName = . }}
+		{{- end }}
+	{{- else }}
+		{{- $authorName = . }}
+	{{- end }}
+{{- end }}
 
 {{- $latestDate := time.AsTime "0001-01-01T00:00:00-00:00" }}
 
@@ -24,9 +41,6 @@
   {{- end }}
 {{- end }}
 
-{{- $pages  = where $pages  "Params.private" "!=" true }}
-{{- $pages  = where $pages  "Params.rss_ignore" "!=" true }}
-
 {{- $limit := .Site.Config.Services.RSS.Limit }}
 {{- if ge $limit 1 }}
   {{- $pages  = $pages  | first $limit }}
@@ -35,51 +49,58 @@
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-
     <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content {{ if ne .Title .Site.Title }}{{ with .Title }} in {{ . }} {{ end }}{{ end }} on {{ .Site.Title }}</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>{{ site.Language.Locale }}</language>{{ with site.Params.author.email }}
-    <managingEditor>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</managingEditor>{{ end }}{{ with $authorEmail }}
-    <webMaster>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</webMaster>{{ end }}{{ with .Site.Copyright }}
-    <copyright>{{ . }}</copyright>{{ end }}
+    <description>Recent content {{ if ne .Title .Site.Title }}{{ with .Title }}in {{ . }} {{ end }}{{ end }}on {{ .Site.Title }}</description>
+    <generator>Hugo</generator>
+    <language>{{ site.Language.Locale }}</language>
+    {{ with $authorEmail }}
+      <managingEditor>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</managingEditor>
+    {{ end }}
+    {{ with $authorEmail }}
+      <webMaster>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</webMaster>
+    {{ end }}
+    {{ with .Site.Copyright }}
+      <copyright>{{ . }}</copyright>
+    {{ end }}
+    {{ if not $latestDate.IsZero }}
+      <lastBuildDate>{{ $latestDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+    {{ end }}
+    {{ with .OutputFormats.Get "RSS" }}
+      {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{ end }}
 
-    {{- if not $latestDate.IsZero }}<lastBuildDate>{{ $latestDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
-    
-    {{- with .OutputFormats.Get "RSS" }}{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}{{ end }}
-
-    {{- range $pages }}
+    {{ range $pages }}
       <item>
-        <title>{{ .taxonomy | title }}-{{ .page.Title }}</title>
+        <title>{{ .taxonomy | title }} {{ .page.Title }}</title>
 
-        {{- with .page }}
+        {{ with .page }}
           <link>{{ .Permalink }}</link>
 
-          {{- $latestPages := first 1 (.Pages.ByDate.Reverse) }}
-          {{- with index $latestPages 0 }}
-            {{- if not .Date.IsZero }}<pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>{{ end }}
-          {{- end }}
+          {{ $latestPages := first 1 (.Pages.ByDate.Reverse) }}
+          {{ with index $latestPages 0 }}
+            <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+          {{ end }}
 
-          {{- with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
+          {{ with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
           <guid>{{ .Permalink }}</guid>
 
-          {{- $albumData := partial "album-data.html" . }}
-          {{- if $albumData.cover }}
-            {{- $rssAlbumCoverSpec := site.Params.imageSpec.rssAlbumCover }}
-            {{- $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $rssAlbumCoverSpec)) }}
+          {{ $albumData := partial "album-data.html" . }}
+          {{ $description := (.Params.description | default .Summary) | transform.XMLEscape | safeHTML }}
+          {{ if $albumData.cover }}
+            {{ $rssAlbumCoverSpec := site.Params.imageSpec.rssAlbumCover }}
+            {{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $rssAlbumCoverSpec)) }}
             <media:content url="{{ $thumbnail.Permalink }}" type="image/jpeg"/>
             <description>
               &lt;img src=&quot;{{ $thumbnail.Permalink }}&quot; /&gt;
-              &lt;p&gt;{{ .Params.description | html }}&lt;/p&gt;
+              &lt;p&gt;{{ $description }}&lt;/p&gt;
             </description>
-          {{- else }}
-            <description>{{ .Params.description | html }}</description>
-          {{- end }}
+          {{ else }}
+            <description>{{ $description }}</description>
+          {{ end }}
 
-        {{- end }}
+        {{ end }}
       </item>
-    {{- end }}
-
+    {{ end }}
   </channel>
 </rss>
