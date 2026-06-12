@@ -2,11 +2,13 @@
 title: "Imprint"
 
 layout: "prose"
-rss_ignore: true
 
 menu:
   footer:
     weight: 1
+
+params:
+  rss_ignore: true
 ---
 
 ● Powered by {{< link-blank "Hugo" "https://github.com/gohugoio/hugo/" >}}.
