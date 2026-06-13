@@ -3,7 +3,7 @@
   <section class="terms">
     <div class="term-list">
       {{ range .Data.Terms.Alphabetical }}
-        {{ partial "term-card.html" (dict
+        {{ partial "term.html" (dict
           "Term" .Term
           "Pages" .Pages
           "Count" .Count
