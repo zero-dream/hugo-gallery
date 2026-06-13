@@ -3,8 +3,8 @@
   {{ partial "categories.html" }}
   {{ partial "featured.html" . }}
   <section class="galleries">
-    {{ range where .Pages "Params.private" "!=" true }}
-      {{ partial "album-card.html" . }}
+    {{ range partial "data/pages.html" .Pages }}
+      {{ partial "album.html" . }}
     {{ end }}
   </section>
   {{ with .Content }}
