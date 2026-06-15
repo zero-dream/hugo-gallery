@@ -2,6 +2,6 @@
 {{ $ext := path.Ext $path }}
 {{ $css := resources.Get $path }}
 {{ if eq $ext ".scss" }}
-  {{ $css = $css | css.Sass }}
+	{{ $css = $css | css.Sass }}
 {{ end }}
 {{ $css = $css | minify | fingerprint }} <link rel="stylesheet" href="{{ $css.RelPermalink }}" />

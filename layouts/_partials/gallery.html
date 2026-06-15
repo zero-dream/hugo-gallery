@@ -1,61 +1,61 @@
 <section class="fj-gallery hidden" id="gallery">
-  {{ $images := slice }}
-  {{ range $image := partial "data/resources.html" (.Resources.ByType "image") }}
-    {{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
-    {{ with $image.Params.date }}
-      {{ $date = time.AsTime . }}
-    {{ else }}
-      {{ with $image.Meta.Date }}
-        {{ $date = . }}
-      {{ end }}
-    {{ end }}
-    {{ $params := merge $image.Params (dict "date" $date) }}
-    {{ $images = $images | append (dict
-      "image" $image
-      "name" $image.Name
-      "title" $image.Title
-      "params" $params
-      )
-    }}
-  {{ end }}
+	{{ $images := slice }}
+	{{ range $image := partial "data/resources.html" (.Resources.ByType "image") }}
+		{{ $date := time.AsTime "0001-01-01T00:00:00-00:00" }}
+		{{ with $image.Params.date }}
+			{{ $date = time.AsTime . }}
+		{{ else }}
+			{{ with $image.Meta.Date }}
+				{{ $date = . }}
+			{{ end }}
+		{{ end }}
+		{{ $params := merge $image.Params (dict "date" $date) }}
+		{{ $images = $images | append (dict
+			"image" $image
+			"name" $image.Name
+			"title" $image.Title
+			"params" $params
+			)
+		}}
+	{{ end }}
 
-  {{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
-  {{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
-  {{ $enableCaption := $.Param "gallery.photoswipe.enableCaption" }}
-  {{ range sort $images (.Param "sort_by") (.Param "sort_order") }}
-    {{ $image := .image }}
-    {{ $name := .name }}
-    {{ $title := .title }}
-    {{ $params := .params }}
-    {{ $image = partial "watermark.html" (dict "image" $image "page" $) }}
-    {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
-    {{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
-    {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
+	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
+	{{ $enableCaption := $.Param "gallery.photoswipe.enableCaption" }}
+	{{ range sort $images (.Param "sort_by") (.Param "sort_order") }}
+		{{ $image := .image }}
+		{{ $name := .name }}
+		{{ $title := .title }}
+		{{ $params := .params }}
+		{{ $image = partial "watermark.html" (dict "image" $image "page" $) }}
+		{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
+		{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
+		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
 
-    {{ $downImage := $image }}
-    {{ $enableDownload := $.Store.Get "enableDownload" }}
-    {{ if $enableDownload }}
-      {{ $spec := $.Param "downImage.spec" }}
-      {{ if eq $spec "" }}
-        {{ $enableDownload = $.Param "build.publishResources" }}
-      {{ else }}
-        {{ $downImgSize := $spec }}
-        {{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
-      {{ end }}
-    {{ end }}
-    <a class="fj-gallery-item" href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}" title="{{ $title }}">
-      <figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
-        <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" />
-        {{ if $enableCaption }}
-          <span class="pswp-caption-content">{{ $title }}</span>
-        {{ end }}
-      </figure>
-      <meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
-      {{ with site.Params.Author }}
-        <span itemprop="creator" itemscope itemtype="https://schema.org/Person">
-          <meta itemprop="name" content="{{ site.Params.Author.name }}" />
-        </span>
-      {{ end }}
-    </a>
-  {{ end }}
+		{{ $downImage := $image }}
+		{{ $enableDownload := $.Store.Get "enableDownload" }}
+		{{ if $enableDownload }}
+			{{ $spec := $.Param "downImage.spec" }}
+			{{ if eq $spec "" }}
+				{{ $enableDownload = $.Param "build.publishResources" }}
+			{{ else }}
+				{{ $downImgSize := $spec }}
+				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
+			{{ end }}
+		{{ end }}
+		<a class="fj-gallery-item" href="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" data-pswp-src="{{ $lightbox.RelPermalink }}" data-pswp-width="{{ $lightbox.Width }}" data-pswp-height="{{ $lightbox.Height }}" data-pswp-target="{{ $name | urlize }}" title="{{ $title }}">
+			<figure itemscope itemtype="https://schema.org/ImageObject" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
+				<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" />
+				{{ if $enableCaption }}
+					<span class="pswp-caption-content">{{ $title }}</span>
+				{{ end }}
+			</figure>
+			<meta itemprop="contentUrl" content="{{ if $enableDownload }}{{ $downImage.RelPermalink }}{{ else }}{{ $lightbox.RelPermalink }}{{ end }}" />
+			{{ with site.Params.Author }}
+				<span itemprop="creator" itemscope itemtype="https://schema.org/Person">
+					<meta itemprop="name" content="{{ site.Params.Author.name }}" />
+				</span>
+			{{ end }}
+		</a>
+	{{ end }}
 </section>
