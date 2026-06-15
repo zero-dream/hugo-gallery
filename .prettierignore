@@ -1,3 +1,5 @@
 .vscode/
 assets/lib/
 assets/jsconfig.json
+
+/layouts
