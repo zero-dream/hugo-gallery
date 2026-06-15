@@ -19,11 +19,11 @@
 	"rowHeightTolerance" (.Param "gallery.justified.rowHeightTolerance")
 }}
 {{ partial "import/css.html" (dict "path" "css/gallery.scss") }}
-{{ partial "import/js.html" (dict "path" "js/gallery.js" "params" $params) }}
+{{ partial "import/js.html" (dict "path" "js/gallery.js" "format" "esm" "params" $params) }}
 
 {{ $params := dict }}
 {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
-{{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
+{{ partial "import/js.html" (dict "path" "js/lazysizes.js" "format" "esm" "params" $params) }}
 
 {{ $enableDownload := .Param "downImage.enable" }}
 {{ .Store.Set "enableDownload" $enableDownload }}
@@ -37,5 +37,5 @@
 	"enableDownload" $enableDownload
 }}
 {{ partial "import/css.html" (dict "path" "css/photoswipe.scss") }}
-{{ partial "import/js.html" (dict "path" "js/photoswipe.js" "params" $params) }}
+{{ partial "import/js.html" (dict "path" "js/photoswipe.js" "format" "esm" "params" $params) }}
 {{ end }}

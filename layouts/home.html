@@ -19,5 +19,5 @@
 
 {{ $params := dict }}
 {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
-{{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
+{{ partial "import/js.html" (dict "path" "js/lazysizes.js" "format" "esm" "params" $params) }}
 {{ end }}
