@@ -5,4 +5,7 @@
   "explorer.fileNesting.patterns": {
     "*index.md": "*.avif, *.bmp, *.gif, *.heic, *.heif, *.jpeg, *.jpg, *.png, *.tiff, *.tif, *.webp"
   },
+  "[html]": {
+    "editor.defaultFormatter": "gohugoio.gotmplfmt"
+  },
 }
