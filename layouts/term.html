@@ -1,14 +1,14 @@
 {{ define "main" }}
-  {{ partial "title.html" . }}
-  <section class="galleries">
-    {{ range partial "data/pages.html" .Pages }}
-      {{ partial "album.html" . }}
-    {{ end }}
-  </section>
+{{ partial "title.html" . }}
+<section class="galleries">
+	{{ range partial "data/pages.html" .Pages }}
+		{{ partial "album.html" . }}
+	{{ end }}
+</section>
 {{ end }}
 
 {{ define "head-assets" }}
-  {{ $params := dict }}
-  {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
-  {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
+{{ $params := dict }}
+{{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
+{{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 {{ end }}
