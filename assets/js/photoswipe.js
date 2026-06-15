@@ -1,4 +1,4 @@
-import * as params from "@params";
+import params from "@params";
 import PhotoSwipeLightbox from "../lib/photoswipe/photoswipe-lightbox.esm.js";
 import PhotoSwipe from "../lib/photoswipe/photoswipe.esm.js";
 import PhotoSwipeDynamicCaption from "../lib/photoswipe/photoswipe-dynamic-caption-plugin.esm.js";
