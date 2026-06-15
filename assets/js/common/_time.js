@@ -1,4 +1,4 @@
-import * as params from "@params";
+import params from "@params";
 
 (() => {
   const currBuildTime = params.buildTime;
