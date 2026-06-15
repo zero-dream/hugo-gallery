@@ -1,25 +1,25 @@
 {{ range where site.Pages.ByDate.Reverse "Params.featured" "==" true }}
-  {{ $albumData := partial "data/album.html" . }}
-  {{ if $albumData }}
-    {{ $thumbnailSpec := site.Params.imageSpec.featured }}
-    {{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
-    {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
-    <section class="featured">
-      <a class="featured-card" href="{{ .RelPermalink }}" title="{{ $.Title }}">
-        <figure style="background-color: {{ $color }};">
-          <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $.Title }}" />
-        </figure>
-        <div>
-          <h2>{{ .Title }}</h2>
-          <p>
-            {{ if gt $albumData.albumCount 0 }}
-              {{ T "albumCount" (dict "count" ($albumData.albumCount | lang.FormatNumber 0) "photoCount" ($albumData.imageCount | lang.FormatNumber 0 | lang.Translate "photoCount")) }}
-            {{ else }}
-              {{ T "photoCount" ($albumData.imageCount | lang.FormatNumber 0) }}
-            {{ end }}
-          </p>
-        </div>
-      </a>
-    </section>
-  {{ end }}
+	{{ $albumData := partial "data/album.html" . }}
+	{{ if $albumData }}
+		{{ $thumbnailSpec := site.Params.imageSpec.featured }}
+		{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
+		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+		<section class="featured">
+			<a class="featured-card" href="{{ .RelPermalink }}" title="{{ $.Title }}">
+				<figure style="background-color: {{ $color }};">
+					<img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ $.Title }}" />
+				</figure>
+				<div>
+					<h2>{{ .Title }}</h2>
+					<p>
+						{{ if gt $albumData.albumCount 0 }}
+							{{ T "albumCount" (dict "count" ($albumData.albumCount | lang.FormatNumber 0) "photoCount" ($albumData.imageCount | lang.FormatNumber 0 | lang.Translate "photoCount")) }}
+						{{ else }}
+							{{ T "photoCount" ($albumData.imageCount | lang.FormatNumber 0) }}
+						{{ end }}
+					</p>
+				</div>
+			</a>
+		</section>
+	{{ end }}
 {{ end }}
