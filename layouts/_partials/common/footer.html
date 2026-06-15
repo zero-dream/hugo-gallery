@@ -1,13 +1,13 @@
 <footer>
-  {{ partialCached "icons/social.html" . }}
-  <section>
-    <span>
-      {{ .Site.Copyright | markdownify }}
-    </span>
-    {{ range .Site.Menus.footer }}
-      <a {{ with .Params.rel }}rel="{{ . }}"{{ end }} href="{{ .URL }}">
-        {{ .Name }}
-      </a>
-    {{ end }}
-  </section>
+	{{ partialCached "icons/social.html" . }}
+	<section>
+		<span>
+			{{ .Site.Copyright | markdownify }}
+		</span>
+		{{ range .Site.Menus.footer }}
+			<a {{ with .Params.rel }}rel="{{ . }}"{{ end }} href="{{ .URL }}">
+				{{ .Name }}
+			</a>
+		{{ end }}
+	</section>
 </footer>
