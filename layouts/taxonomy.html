@@ -1,16 +1,16 @@
 {{ define "main" }}
-  {{ partial "title.html" . }}
-  <section class="terms">
-    <div class="term-list">
-      {{ range .Data.Terms.Alphabetical }}
-        {{ partial "term.html" (dict
-          "Term" .Term
-          "Pages" .Pages
-          "Count" .Count
-          "Page"  .Page
-          )
-        }}
-      {{ end }}
-    </div>
-  </section>
+{{ partial "title.html" . }}
+<section class="terms">
+	<div class="term-list">
+		{{ range .Data.Terms.Alphabetical }}
+			{{ partial "term.html" (dict
+				"Term" .Term
+				"Pages" .Pages
+				"Count" .Count
+				"Page" .Page
+				)
+			}}
+		{{ end }}
+	</div>
+</section>
 {{ end }}

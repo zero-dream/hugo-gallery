@@ -1,41 +1,41 @@
 {{ define "main" }}
-  {{ partial "title.html" . }}
-  {{ partial "gallery.html" . }}
-  {{ partial "related.html" . }}
-  {{ with .Content }}
-    <article class="prose">
-      {{ . }}
-    </article>
-  {{ end }}
+{{ partial "title.html" . }}
+{{ partial "gallery.html" . }}
+{{ partial "related.html" . }}
+{{ with .Content }}
+	<article class="prose">
+		{{ . }}
+	</article>
+{{ end }}
 {{ end }}
 
 {{ define "head-assets" }}
-  {{ partial "import/css.html" (dict "path" "/css/prose.css") }}
+{{ partial "import/css.html" (dict "path" "/css/prose.css") }}
 
-  {{ $params := dict
-    "gutterH" (.Param "gallery.justified.gutterH")
-    "gutterV" (.Param "gallery.justified.gutterV")
-    "rowHeight" (.Param "gallery.justified.rowHeight")
-    "rowHeightTolerance" (.Param "gallery.justified.rowHeightTolerance")
-  }}
-  {{ partial "import/css.html" (dict "path" "css/gallery.scss") }}
-  {{ partial "import/js.html" (dict "path" "js/gallery.js" "params" $params) }}
+{{ $params := dict
+	"gutterH" (.Param "gallery.justified.gutterH")
+	"gutterV" (.Param "gallery.justified.gutterV")
+	"rowHeight" (.Param "gallery.justified.rowHeight")
+	"rowHeightTolerance" (.Param "gallery.justified.rowHeightTolerance")
+}}
+{{ partial "import/css.html" (dict "path" "css/gallery.scss") }}
+{{ partial "import/js.html" (dict "path" "js/gallery.js" "params" $params) }}
 
-  {{ $params := dict }}
-  {{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
-  {{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
+{{ $params := dict }}
+{{ partial "import/css.html" (dict "path" "/css/lazysizes.scss") }}
+{{ partial "import/js.html" (dict "path" "js/lazysizes.js" "params" $params) }}
 
-  {{ $enableDownload := .Param "downImage.enable" }}
-  {{ .Store.Set "enableDownload" $enableDownload }}
-  {{ $params := dict
-    "closeTitle" (i18n "closeTitle")
-    "zoomTitle" (i18n "zoomTitle")
-    "arrowPrevTitle" (i18n "arrowPrevTitle")
-    "arrowNextTitle" (i18n "arrowNextTitle")
-    "errorMsg" (i18n "errorMsg")
-    "downloadTitle" (i18n "downloadTitle")
-    "enableDownload" $enableDownload
-  }}
-  {{ partial "import/css.html" (dict "path" "css/photoswipe.scss") }}
-  {{ partial "import/js.html" (dict "path" "js/photoswipe.js" "params" $params) }}
+{{ $enableDownload := .Param "downImage.enable" }}
+{{ .Store.Set "enableDownload" $enableDownload }}
+{{ $params := dict
+	"closeTitle" (i18n "closeTitle")
+	"zoomTitle" (i18n "zoomTitle")
+	"arrowPrevTitle" (i18n "arrowPrevTitle")
+	"arrowNextTitle" (i18n "arrowNextTitle")
+	"errorMsg" (i18n "errorMsg")
+	"downloadTitle" (i18n "downloadTitle")
+	"enableDownload" $enableDownload
+}}
+{{ partial "import/css.html" (dict "path" "css/photoswipe.scss") }}
+{{ partial "import/js.html" (dict "path" "js/photoswipe.js" "params" $params) }}
 {{ end }}

@@ -1,41 +1,41 @@
 <header id="header">
-  <nav class="blur-01">
-    <ul>
-      <li>
-        <a class="header-title btn btn-text" href="{{ .Site.Home.RelPermalink }}">
-          {{ .Site.Title }}
-        </a>
-      </li>
-    </ul>
+	<nav class="blur-01">
+		<ul>
+			<li>
+				<a class="header-title btn btn-text" href="{{ .Site.Home.RelPermalink }}">
+					{{ .Site.Title }}
+				</a>
+			</li>
+		</ul>
 
-    <ul>
-      <li>
-        <button class="btn btn-text" id="theme-toggle" theme="{{ site.Params.defaultTheme }}" type="button" title="{{ T "theme" }}">
-          <span class="icon icon-themeToggle-auto">
-            {{ partial "icons/hero.html" (dict "name" "clock" "type" "outline") }}
-          </span>
-          <span class="icon icon-themeToggle-light hidden">
-            {{ partial "icons/hero.html" (dict "name" "sun" "type" "outline") }}
-          </span>
-          <span class="icon icon-themeToggle-dark hidden">
-            {{ partial "icons/hero.html" (dict "name" "moon" "type" "outline") }}
-          </span>
-        </button>
-      </li>
-      {{ if site.Menus.main }}
-        <li>
-          <button class="btn btn-text" id="menu-toggle" aria-expanded="false" type="button" title="{{ T "menu" }}">
-            <span class="icon icon-menuToggle-bars">
-              {{ partial "icons/hero.html" (dict "name" "bars-3" "type" "outline") }}
-            </span>
-            <span class="icon icon-menuToggle-xmark hidden">
-              {{ partial "icons/hero.html" (dict "name" "x-mark" "type" "outline") }}
-            </span>
-          </button>
-        </li>
-      {{ end }}
-    </ul>
-  </nav>
+		<ul>
+			<li>
+				<button class="btn btn-text" id="theme-toggle" theme="{{ site.Params.defaultTheme }}" type="button" title="{{ T "theme" }}">
+					<span class="icon icon-themeToggle-auto">
+						{{ partial "icons/hero.html" (dict "name" "clock" "type" "outline") }}
+					</span>
+					<span class="icon icon-themeToggle-light hidden">
+						{{ partial "icons/hero.html" (dict "name" "sun" "type" "outline") }}
+					</span>
+					<span class="icon icon-themeToggle-dark hidden">
+						{{ partial "icons/hero.html" (dict "name" "moon" "type" "outline") }}
+					</span>
+				</button>
+			</li>
+			{{ if site.Menus.main }}
+				<li>
+					<button class="btn btn-text" id="menu-toggle" aria-expanded="false" type="button" title="{{ T "menu" }}">
+						<span class="icon icon-menuToggle-bars">
+							{{ partial "icons/hero.html" (dict "name" "bars-3" "type" "outline") }}
+						</span>
+						<span class="icon icon-menuToggle-xmark hidden">
+							{{ partial "icons/hero.html" (dict "name" "x-mark" "type" "outline") }}
+						</span>
+					</button>
+				</li>
+			{{ end }}
+		</ul>
+	</nav>
 
-  {{ partial "common/menu.html" . }}
+	{{ partial "common/menu.html" . }}
 </header>

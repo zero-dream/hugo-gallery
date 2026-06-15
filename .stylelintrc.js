@@ -1,6 +1,8 @@
-{
-  "extends": ["stylelint-config-standard-scss"],
-  "rules": {
+/** @type {import('stylelint').Config} */
+
+module.exports = {
+  extends: ["stylelint-config-standard-scss"],
+  rules: {
     "alpha-value-notation": "number",
     "color-function-notation": null,
     "color-function-alias-notation": null,
@@ -11,8 +13,8 @@
     "declaration-empty-line-before": [
       "never",
       {
-        "ignore": ["after-declaration"]
-      }
-    ]
-  }
-}
+        ignore: ["after-declaration"],
+      },
+    ],
+  },
+};

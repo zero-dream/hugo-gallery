@@ -1,40 +1,40 @@
 <meta property="og:url" content="{{ .Permalink }}" />
 
 {{ with or site.Title site.Params.title | plainify }}
-  <meta property="og:site_name" content="{{ . }}" />
+	<meta property="og:site_name" content="{{ . }}" />
 {{ end }}
 
 {{ with or .Title site.Title site.Params.title | plainify }}
-  <meta property="og:title" content="{{ . }}" />
+	<meta property="og:title" content="{{ . }}" />
 {{ end }}
 
 {{ with or .Description .Summary site.Params.description | plainify | htmlUnescape }}
-  <meta property="og:description" content="{{ trim . "\n\r\t " }}" />
+	<meta property="og:description" content="{{ trim . "\n\r\t " }}" />
 {{ end }}
 
 {{ with or .Params.locale site.Language.Locale }}
-  <meta property="og:locale" content="{{ replace . `-` `_` }}" />
+	<meta property="og:locale" content="{{ replace . `-` `_` }}" />
 {{ end }}
 
 {{ if .IsPage }}
-  <meta property="og:type" content="article" />
-  {{ with .Section }}
-    <meta property="article:section" content="{{ . }}" />
-  {{ end }}
-  {{ $ISO8601 := "2006-01-02T15:04:05-07:00" }}
-  {{ with .PublishDate }}
-    <meta property="article:published_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }} />
-  {{ end }}
-  {{ with .Lastmod }}
-    <meta property="article:modified_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }} />
-  {{ end }}
+	<meta property="og:type" content="article" />
+	{{ with .Section }}
+		<meta property="article:section" content="{{ . }}" />
+	{{ end }}
+	{{ $ISO8601 := "2006-01-02T15:04:05-07:00" }}
+	{{ with .PublishDate }}
+		<meta property="article:published_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }} />
+	{{ end }}
+	{{ with .Lastmod }}
+		<meta property="article:modified_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }} />
+	{{ end }}
 {{ else }}
-  <meta property="og:type" content="website" />
+	<meta property="og:type" content="website" />
 {{ end }}
 
 {{ $albumData := partial "data/album.html" . }}
 {{ if $albumData.cover }}
-  {{ $imageSpec := printf "fit %s" (site.Params.imageSpec.openGraph) }}
-  {{ $image := $albumData.cover.Filter (slice images.AutoOrient (images.Process $imageSpec)) }}
-  <meta property="og:image" content="{{ $image.Permalink }}" />
+	{{ $imageSpec := printf "fit %s" (site.Params.imageSpec.openGraph) }}
+	{{ $image := $albumData.cover.Filter (slice images.AutoOrient (images.Process $imageSpec)) }}
+	<meta property="og:image" content="{{ $image.Permalink }}" />
 {{ end }}

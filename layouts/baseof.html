@@ -1,15 +1,15 @@
 <!doctype html>
 <html class="{{ site.Params.defaultTheme }}" lang="{{ site.Language.Locale | default "en" }}">
-  <head>
-    {{ partial "common/head.html" . }}
-    {{ block "head-assets" . }}{{ end }}
-    {{ partial "common/head-custom.html" . }}
-  </head>
-  <body>
-    {{ block "header" . }}{{ partial "common/header.html" . }}{{ end }}
-    <main>
-      {{ block "main" . }}{{ end }}
-    </main>
-    {{ block "footer" . }}{{ partialCached "common/footer.html" . }}{{ end }}
-  </body>
+	<head>
+		{{ partial "common/head.html" . }}
+		{{ block "head-assets" . }}{{ end }}
+		{{ partial "common/head-custom.html" . }}
+	</head>
+	<body>
+		{{ block "header" . }}{{ partial "common/header.html" . }}{{ end }}
+		<main>
+			{{ block "main" . }}{{ end }}
+		</main>
+		{{ block "footer" . }}{{ partialCached "common/footer.html" . }}{{ end }}
+	</body>
 </html>

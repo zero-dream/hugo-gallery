@@ -1,4 +1,5 @@
 /** @type {import('prettier').Config} */
+
 module.exports = {
   plugins: ["prettier-plugin-go-template", "prettier-plugin-organize-attributes", "prettier-plugin-css-order"],
   printWidth: 1000,
