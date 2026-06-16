@@ -3,9 +3,7 @@
 {{ partial "gallery.html" . }}
 {{ partial "related.html" . }}
 {{ with .Content }}
-	<article class="prose">
-		{{ . }}
-	</article>
+	{{ partial "prose.html" . }}
 {{ end }}
 {{ end }}
 

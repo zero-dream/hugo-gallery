@@ -1,23 +1,23 @@
-(() => {
-  const body = document.body;
-  const header = document.getElementById("header");
-  const nav = header.querySelector("nav");
-  const toggle = document.getElementById("menu-toggle");
-  const menu = document.getElementById("menu");
+const bodyEl = document.body;
+const headerEl = document.getElementById("header");
+const navEl = headerEl.querySelector("nav");
+const toggleEl = document.getElementById("menu-toggle");
+const menuEl = document.getElementById("menu");
 
-  if (!toggle) return;
-
-  toggle.addEventListener("click", (event) => {
+if (toggleEl) {
+  toggleEl.addEventListener("click", (event) => {
     event.preventDefault();
-    toggle.ariaExpanded = menu.classList.contains("hidden");
-    menu.classList.toggle("hidden");
+    toggleEl.ariaExpanded = menuEl.classList.contains("hidden");
+    menuEl.classList.toggle("hidden");
 
-    if (toggle.ariaExpanded === "true") {
-      nav.classList.remove("blur-01");
-      body.style.overflow = "hidden";
+    if (toggleEl.ariaExpanded === "true") {
+      navEl.classList.remove("blur-01");
+      bodyEl.style.overflow = "hidden";
     } else {
-      nav.classList.add("blur-01");
-      body.style.overflow = "";
+      navEl.classList.add("blur-01");
+      bodyEl.style.overflow = "";
     }
   });
-})();
+}
+
+export {};

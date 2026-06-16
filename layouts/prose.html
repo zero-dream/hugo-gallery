@@ -1,9 +1,7 @@
 {{ define "main" }}
 {{ partial "title.html" . }}
 {{ with .Content }}
-	<article class="prose">
-		{{ . }}
-	</article>
+	{{ partial "prose.html" . }}
 {{ end }}
 {{ end }}
 
