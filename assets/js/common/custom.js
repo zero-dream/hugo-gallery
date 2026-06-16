@@ -1,1 +1,5 @@
 /* custom js */
+
+// ... code
+
+export {};

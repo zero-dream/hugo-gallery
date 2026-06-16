@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light dark;
+
   // size
 
   --size: 0.25rem;
@@ -41,8 +43,6 @@
   --text-5xl-line-height: 1;
 
   // color
-
-  color-scheme: light dark;
 
   --color-text-1: light-dark(rgb(10 10 10), rgb(250 250 250));
   --color-text-2: light-dark(rgb(115 115 115), rgb(163 163 163));
