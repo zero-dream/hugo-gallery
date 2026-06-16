@@ -3,11 +3,11 @@ import PhotoSwipeLightbox from "../lib/photoswipe/photoswipe-lightbox.esm.js";
 import PhotoSwipe from "../lib/photoswipe/photoswipe.esm.js";
 import PhotoSwipeDynamicCaption from "../lib/photoswipe/photoswipe-dynamic-caption-plugin.esm.js";
 
-const gallery = document.getElementById("gallery");
+const galleryEl = document.getElementById("gallery");
 
-if (gallery) {
+if (galleryEl) {
   const lightbox = new PhotoSwipeLightbox({
-    gallery,
+    gallery: galleryEl,
     children: ".fj-gallery-item",
     showHideAnimationType: "zoom",
     bgOpacity: 1,
@@ -63,10 +63,10 @@ if (gallery) {
 
   if (window.location.hash.substring(1).length > 1) {
     const target = window.location.hash.substring(1);
-    const items = gallery.querySelectorAll("a");
+    const items = galleryEl.querySelectorAll("a");
     for (let i = 0; i < items.length; i++) {
       if (items[i].dataset["pswpTarget"] === target) {
-        lightbox.loadAndOpen(i, { gallery });
+        lightbox.loadAndOpen(i, { gallery: galleryEl });
         break;
       }
     }
