@@ -10,7 +10,7 @@
 
 		<ul>
 			<li>
-				<button class="btn btn-text" id="theme-toggle" theme="{{ site.Params.defaultTheme }}" type="button" title="{{ T "theme" }}">
+				<button class="btn btn-text" id="theme-toggle" type="button" title="{{ T "theme" }}">
 					<span class="icon icon-themeToggle-auto">
 						{{ partial "icons/hero.html" (dict "name" "clock" "type" "outline") }}
 					</span>
@@ -21,6 +21,9 @@
 						{{ partial "icons/hero.html" (dict "name" "moon" "type" "outline") }}
 					</span>
 				</button>
+				<script>
+					document.currentScript.previousElementSibling.setAttribute("theme", window.hugoGallery.currTheme);
+				</script>
 			</li>
 			{{ if site.Menus.main }}
 				<li>
