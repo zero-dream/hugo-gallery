@@ -8,9 +8,7 @@
 	{{ end }}
 </section>
 {{ with .Content }}
-	<article class="prose">
-		{{ . }}
-	</article>
+	{{ partial "prose.html" . }}
 {{ end }}
 {{ end }}
 
