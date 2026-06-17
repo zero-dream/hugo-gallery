@@ -1,7 +1,7 @@
 {{ define "main" }}
-{{ partial "title.html" . }}
+{{ partial "components/title.html" . }}
 {{ with .Content }}
-	{{ partial "prose.html" . }}
+	{{ partial "components/prose.html" . }}
 {{ end }}
 {{ end }}
 
