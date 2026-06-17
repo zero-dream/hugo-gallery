@@ -7,7 +7,7 @@
 	{{ range first 1 (where $resources "Params.cover" "==" true) }}
 		{{ $cover = . }}
 	{{ end }}
-	{{ $cover = partial "watermark.html" (dict "image" $cover "page" $) }}
+	{{ $cover = partial "handle/watermark.html" (dict "image" $cover "page" $) }}
 
 	{{ $albumCount := 0 }}
 	{{ $imageCount := 0 }}

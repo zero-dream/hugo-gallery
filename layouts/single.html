@@ -1,9 +1,9 @@
 {{ define "main" }}
-{{ partial "title.html" . }}
-{{ partial "gallery.html" . }}
-{{ partial "related.html" . }}
+{{ partial "components/title.html" . }}
+{{ partial "components/gallery.html" . }}
+{{ partial "components/related.html" . }}
 {{ with .Content }}
-	{{ partial "prose.html" . }}
+	{{ partial "components/prose.html" . }}
 {{ end }}
 {{ end }}
 
