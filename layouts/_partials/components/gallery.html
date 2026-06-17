@@ -27,7 +27,7 @@
 		{{ $name := .name }}
 		{{ $title := .title }}
 		{{ $params := .params }}
-		{{ $image = partial "watermark.html" (dict "image" $image "page" $) }}
+		{{ $image = partial "handle/watermark.html" (dict "image" $image "page" $) }}
 		{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 		{{ $lightbox := $image.Filter (slice images.AutoOrient (images.Process $lightboxSpec)) }}
 		{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
