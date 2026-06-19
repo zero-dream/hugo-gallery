@@ -12,8 +12,13 @@ params:
   sort_order: "asc" # value: desc; asc;
   downImage:
     enable: true
-    spec: "fit 3200x3200"
+    imageSpec: "fit 3200x3200"
+  album:
+    imageSpec:
+      thumbnail: "fit 1200x1200"
   gallery:
+    photoSwipe:
+      enableCaption: true
     imageSpec:
       thumbnail: "fit 600x600"
       lightbox: "fit 1600x1600"
@@ -22,8 +27,6 @@ params:
       gutterV: 10
       rowHeight: 320
       rowHeightTolerance: 0.25
-    photoswipe:
-      enableCaption: true
   watermark:
     path: "images/watermark/watermark.png" # assets/...
     opacity: 0.2
@@ -33,10 +36,9 @@ params:
 
   # site.Params
   imageSpec:
+    rssCover: "fill 900x600"
     featured: "fit 1600x1600"
-    thumbnail: "fit 1200x1200"
     openGraph: "fit 1600x1600"
-    rssAlbumCover: "fill 900x600"
   socialIcons:
     github: "https://github.com/zero-dream/hugo-gallery/"
     facebook: "https://www.facebook.com/"

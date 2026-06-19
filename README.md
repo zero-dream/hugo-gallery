@@ -322,13 +322,13 @@ Explicitly set whether the download function is enabled.
 
 `enable`: (bool) Whether to enable the download feature.
 
-`spec`: (string) If the value is an empty string `""`, use the value of the [`publishResources`](#exclude-original-images) field (when this value is `true`, download the original image; when `false`, download the lightbox image).
+`imageSpec`: (string) If the value is an empty string `""`, use the value of the [`publishResources`](#exclude-original-images) field (when this value is `true`, download the original image; when `false`, download the lightbox image).
 
 ```yaml
 params:
   downImage:
     enable: true
-    spec: "fit 3200x3200"
+    imageSpec: "fit 3200x3200"
 ```
 
 ### Gallery
@@ -336,6 +336,8 @@ params:
 **Support:** cascade;
 
 Gallery options.
+
+`photoSwipe.enableCaption`: (float) Whether to display caption content on the lightbox.
 
 `justified.gutterH`: (int) Horizontal spacing between items.
 
@@ -345,11 +347,11 @@ Gallery options.
 
 `justified.rowHeightTolerance`: (float) The value range is [0,1], how far row heights can stray from rowHeight. 0 would force rows to be the rowHeight exactly and would likely make it impossible to justify.
 
-`photoswipe.enableCaption`: (float) Whether to display caption content on the lightbox.
-
 ```yaml
 params:
   gallery:
+    photoSwipe:
+      enableCaption: true
     imageSpec:
       thumbnail: "fit 600x600"
       lightbox: "fit 1600x1600"
@@ -358,8 +360,6 @@ params:
       gutterV: 10
       rowHeight: 320
       rowHeightTolerance: 0.25
-    photoswipe:
-      enableCaption: true
 ```
 
 ### Watermark

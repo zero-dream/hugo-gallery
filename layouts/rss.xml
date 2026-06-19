@@ -67,8 +67,8 @@
 				{{ $albumData := partial "data/album.html" . }}
 				{{ $description := (.Params.description | default .Summary) | transform.XMLEscape | safeHTML }}
 				{{ if $albumData.cover }}
-					{{ $rssAlbumCoverSpec := site.Params.imageSpec.rssAlbumCover }}
-					{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $rssAlbumCoverSpec)) }}
+					{{ $rssCoverSpec := site.Params.imageSpec.rssCover }}
+					{{ $thumbnail := $albumData.cover.Filter (slice images.AutoOrient (images.Process $rssCoverSpec)) }}
 					<media:content url="{{ $thumbnail.Permalink }}" type="image/jpeg"/>
 					<description>
 						&lt;img src=&quot;{{ $thumbnail.Permalink }}&quot; /&gt;
