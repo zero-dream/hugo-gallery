@@ -19,9 +19,9 @@
 		}}
 	{{ end }}
 
+	{{ $enableCaption := $.Param "gallery.photoSwipe.enableCaption" }}
 	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
 	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
-	{{ $enableCaption := $.Param "gallery.photoswipe.enableCaption" }}
 	{{ range sort $images (.Param "sort_by") (.Param "sort_order") }}
 		{{ $image := .image }}
 		{{ $name := .name }}
@@ -35,11 +35,11 @@
 		{{ $downImage := $image }}
 		{{ $enableDownload := $.Store.Get "enableDownload" }}
 		{{ if $enableDownload }}
-			{{ $spec := $.Param "downImage.spec" }}
-			{{ if eq $spec "" }}
+			{{ $imageSpec := $.Param "downImage.imageSpec" }}
+			{{ if eq $imageSpec "" }}
 				{{ $enableDownload = $.Param "build.publishResources" }}
 			{{ else }}
-				{{ $downImgSize := $spec }}
+				{{ $downImgSize := $imageSpec }}
 				{{ $downImage = $image.Filter (slice images.AutoOrient (images.Process $downImgSize)) }}
 			{{ end }}
 		{{ end }}
