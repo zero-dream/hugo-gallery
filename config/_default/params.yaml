@@ -3,8 +3,6 @@ params:
   defaultTheme: "auto" # value: auto; light; dark;
 
   # .Param
-  sort_by: "title"
-  sort_order: "asc" # value: desc; asc;
   downImage:
     enable: true
     imageSpec: "fit 3200x3200"
@@ -12,16 +10,21 @@ params:
     imageSpec:
       thumbnail: "fit 1200x1200"
   gallery:
+    sort:
+      - { key: "params.weight", order: "asc" }
+      - { key: "params.date", order: "desc" }
+      - { key: "name", order: "asc" }
+      - { key: "title", order: "asc" }
     photoSwipe:
       enableCaption: true
-    imageSpec:
-      thumbnail: "fit 600x600"
-      lightbox: "fit 1600x1600"
     justified:
       gutterH: 10
       gutterV: 10
       rowHeight: 320
       rowHeightTolerance: 0.25
+    imageSpec:
+      thumbnail: "fit 600x600"
+      lightbox: "fit 1600x1600"
 
   # site.Params
   imageSpec:

@@ -134,8 +134,6 @@ content/
 - `weight`: (int) The page weight, used to order the page within a page collection.
 - `params.private`: (bool) Whether to display the album in the album overview.
 - `params.featured`: (bool) Whether to display the album on the homepage (even if private).
-- `params.sort_by`: (string) Used to sort images in the gallery.
-- `params.sort_order`: (string) Sort order, desc(descending) order or asc(ascending) order.
 
 ### Draft
 
@@ -259,36 +257,37 @@ The default sort order for page collections, follows this priority:
 
 **Support:** cascade;
 
-The default sorting of gallery images is based on `title` (filename), with the sorting order `asc` (ascending).
+Used to sort images in the gallery.
+
+The first element has the highest priority.
+
+`key`: (string) Sort by. Values: name; title; params.weight; params.date;
+
+`order`: (string) Sort order. Values: asc(ascending); desc(descending);
 
 ```yaml
----
 params:
-  sort_by: "title"
-  sort_order: "asc"
----
+  gallery:
+    sort:
+      - { key: "params.weight", order: "asc" }
+      - { key: "params.date", order: "desc" }
+      - { key: "name", order: "asc" }
+      - { key: "title", order: "asc" }
 ```
 
-You can also customize the sorting:
-
-`sort_by`: (string) Values: name; title; params.date; params.weight;
-
-`sort_order`: (string) Values: desc(descending); asc(ascending);
+Front matter:
 
 ```yaml
 ---
-params:
-  sort_by: "params.date"
-  sort_order: "asc"
 resources:
   - src: "dog-1.jpeg"
-    name: "dog-1"
+    name: "dog-siberian-husky"
     title: "Siberian Husky"
     params:
       date: "2026-01-02T08:00:00+01:00"
       weight: 1
   - src: "dog-2.jpeg"
-    name: "dog-2"
+    name: "dog-alaskan-malamute"
     title: "Alaskan Malamute"
     params:
       date: "2026-01-02T09:00:00+01:00"
@@ -352,14 +351,14 @@ params:
   gallery:
     photoSwipe:
       enableCaption: true
-    imageSpec:
-      thumbnail: "fit 600x600"
-      lightbox: "fit 1600x1600"
     justified:
       gutterH: 10
       gutterV: 10
       rowHeight: 320
       rowHeightTolerance: 0.25
+    imageSpec:
+      thumbnail: "fit 600x600"
+      lightbox: "fit 1600x1600"
 ```
 
 ### Watermark
