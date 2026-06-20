@@ -22,7 +22,10 @@
 	{{ $enableCaption := $.Param "gallery.photoSwipe.enableCaption" }}
 	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
 	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
-	{{ range sort $images (.Param "sort_by") (.Param "sort_order") }}
+	{{ range $.Param "gallery.sort" | collections.Reverse }}
+		{{ $images = sort $images .key .order }}
+	{{ end }}
+	{{ range $images }}
 		{{ $image := .image }}
 		{{ $name := .name }}
 		{{ $title := .title }}
