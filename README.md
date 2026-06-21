@@ -125,7 +125,14 @@ content/
 - Albums without an image are not shown.
 - Use the image with the param `cover: true` as thumbnail for album list; if not set, the first image will be used.
 
-### Front matter
+### Lightbox Action
+
+`click`: Toggle the visibility of controls.
+`double click`: Zoom the current image.
+`swipe left and right`: Switch to the previous/next slide.
+`swipe down`: Close the lightbox.
+
+### Front Matter
 
 - `date`: (string) The date associated with the page, typically the creation date.
 - `draft`: (bool) Whether to disable rendering unless you pass the --buildDrafts flag to the hugo command.
