@@ -23,6 +23,16 @@ body > main > section.fj-gallery {
   }
 }
 
+body > .pswp > section.pswp__scroll-wrap {
+  & > .pswp__container {
+    & > .pswp__item {
+      img {
+        cursor: default;
+      }
+    }
+  }
+}
+
 body > main > section.galleries {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
