@@ -8,13 +8,13 @@ site.Param (.Site.Param)
 
 # --------------------------------------------------
 
-.Params
+.Params ($.Params)
 -> frontMatter.params
 -> frontMatter
 -> frontMatter.cascade.params
 -> hugoToml.cascade.params
 
-.Param
+.Param ($.Param)
 -> frontMatter.params
 -> frontMatter
 -> frontMatter.cascade.params
