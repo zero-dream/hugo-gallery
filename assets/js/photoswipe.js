@@ -7,14 +7,19 @@ const galleryEl = document.getElementById("gallery");
 
 if (galleryEl) {
   const lightbox = new PhotoSwipeLightbox({
+    pswpModule: PhotoSwipe,
     gallery: galleryEl,
     children: ".fj-gallery-item",
-    showHideAnimationType: "zoom",
     bgOpacity: 1,
-    pswpModule: PhotoSwipe,
-    imageClickAction: "zoom",
-    closeTitle: params.closeTitle,
+    showHideAnimationType: "zoom",
+
+    imageClickAction: "",
+    bgClickAction: "",
+    tapAction: "toggle-controls",
+    doubleTapAction: "zoom",
+
     zoomTitle: params.zoomTitle,
+    closeTitle: params.closeTitle,
     arrowPrevTitle: params.arrowPrevTitle,
     arrowNextTitle: params.arrowNextTitle,
     errorMsg: params.errorMsg,
@@ -44,6 +49,68 @@ if (galleryEl) {
       });
     });
   }
+
+  lightbox.on("uiRegister", () => {
+    let clickTimer = null;
+    const pswp = lightbox.pswp;
+    if (!pswp.container) return;
+
+    let clickHandler = {
+      startX: 0,
+      startY: 0,
+      clicked: false,
+      moveThreshold: 5,
+    };
+
+    pswp.container.addEventListener("pointerdown", (e) => {
+      clickHandler.startX = e.clientX;
+      clickHandler.startY = e.clientY;
+      clickHandler.clicked = true;
+    });
+
+    pswp.container.addEventListener("pointermove", (e) => {
+      if (!clickHandler.clicked) return;
+      const dx = e.clientX - clickHandler.startX;
+      const dy = e.clientY - clickHandler.startY;
+      if (Math.sqrt(dx * dx + dy * dy) > clickHandler.moveThreshold) {
+        clickHandler.clicked = false;
+      }
+    });
+
+    pswp.container.addEventListener("click", (e) => {
+      if (!clickHandler.clicked) return;
+      clickHandler.clicked = false;
+
+      const isMousePointer = e.type === "mousedown" || e.pointerType === "mouse";
+      if (!isMousePointer) return;
+
+      if (clickTimer) {
+        clearTimeout(clickTimer);
+        clickTimer = null;
+      }
+      clickTimer = setTimeout(() => {
+        if (!pswp.template) return;
+        pswp.template.classList.toggle("pswp--ui-visible");
+        clickTimer = null;
+      }, 300);
+    });
+
+    pswp.container.addEventListener("dblclick", (e) => {
+      if (clickTimer) {
+        clearTimeout(clickTimer);
+        clickTimer = null;
+      }
+
+      const currSlide = pswp.currSlide;
+      if (!currSlide) return;
+      const rect = currSlide.container.getBoundingClientRect();
+      const point = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+      currSlide.toggleZoom(point);
+    });
+  });
 
   lightbox.on("change", () => {
     const target = lightbox.pswp.currSlide?.data?.element?.dataset["pswpTarget"];
