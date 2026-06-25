@@ -1,0 +1,76 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $image := .image }}
+{{ $format := .format | default "none" }} {{/* Value: none; display; */}}
+{{ $return := dict }}
+
+{{ if reflect.IsImageResourceWithMeta $image }}
+	{{/* hugo v0.162.0 */}}
+	{{ $metas := (dict
+		"Date" $image.Meta.Date
+		"Lat" $image.Meta.Lat
+		"Long" $image.Meta.Long
+		"Orientation" $image.Meta.Orientation
+		"Exif" (dict
+		"ApertureValue" $image.Meta.Exif.ApertureValue
+		"BrightnessValue" $image.Meta.Exif.BrightnessValue
+		"ComponentsConfiguration" $image.Meta.Exif.ComponentsConfiguration
+		"CompositeImage" $image.Meta.Exif.CompositeImage
+		"CreateDate" $image.Meta.Exif.CreateDate
+		"DateTimeOriginal" $image.Meta.Exif.DateTimeOriginal
+		"ExposureCompensation" $image.Meta.Exif.ExposureCompensation
+		"ExposureTime" $image.Meta.Exif.ExposureTime
+		"FNumber" $image.Meta.Exif.FNumber
+		"FocalLength" $image.Meta.Exif.FocalLength
+		"FocalLengthIn35mmFormat" $image.Meta.Exif.FocalLengthIn35mmFormat
+		"HostComputer" $image.Meta.Exif.HostComputer
+		"ISO" $image.Meta.Exif.ISO
+		"LensInfo" $image.Meta.Exif.LensInfo
+		"LensMake" $image.Meta.Exif.LensMake
+		"LensModel" $image.Meta.Exif.LensModel
+		"Make" $image.Meta.Exif.Make
+		"MakerNoteApple" $image.Meta.Exif.MakerNoteApple
+		"Model" $image.Meta.Exif.Model
+		"ModifyDate" $image.Meta.Exif.ModifyDate
+		"OffsetTime" $image.Meta.Exif.OffsetTime
+		"OffsetTimeDigitized" $image.Meta.Exif.OffsetTimeDigitized
+		"OffsetTimeOriginal" $image.Meta.Exif.OffsetTimeOriginal
+		"Orientation" $image.Meta.Exif.Orientation
+		"SceneCaptureType" $image.Meta.Exif.SceneCaptureType
+		"SceneType" $image.Meta.Exif.SceneType
+		"ShutterSpeedValue" $image.Meta.Exif.ShutterSpeedValue
+		"Software" $image.Meta.Exif.Software
+		"SubSecTimeDigitized" $image.Meta.Exif.SubSecTimeDigitized
+		"SubSecTimeOriginal" $image.Meta.Exif.SubSecTimeOriginal
+		"SubjectArea" $image.Meta.Exif.SubjectArea
+		"YCbCrPositioning" $image.Meta.Exif.YCbCrPositioning
+		)
+		)
+	}}
+
+	{{ if eq $format "none" }}
+		{{ $return = $metas }}
+	{{ else if eq $format "display" }}
+		{{ $newMetas := $metas }}
+		{{ $dict := dict }}
+		{{ with $metas.Exif.BrightnessValue }}
+			{{ $brightnessValue := partial "funcs/math/calc-str.html" (dict "str" .) }}
+			{{ $dict = merge $dict (dict "Exif.BrightnessValue" $brightnessValue) }}
+		{{ end }}
+		{{ with $metas.Exif.FNumber }}
+			{{ $brightnessValue := partial "funcs/math/calc-str.html" (dict "str" .) }}
+			{{ $dict = merge $dict (dict "Exif.FNumber" $brightnessValue) }}
+		{{ end }}
+		{{ with $metas.Exif.FocalLength }}
+			{{ $brightnessValue := partial "funcs/math/calc-str.html" (dict "str" .) }}
+			{{ $dict = merge $dict (dict "Exif.FocalLength" $brightnessValue) }}
+		{{ end }}
+		{{ range $key, $value := $dict }}
+			{{ $newMetas = partial "funcs/collections/set-nested.html" (dict "data" $newMetas "key" $key "value" $value) }}
+		{{ end }}
+		{{ $return = $newMetas }}
+	{{ end }}
+{{ end }}
+
+{{ return $return }}
