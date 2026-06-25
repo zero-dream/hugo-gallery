@@ -1,0 +1,19 @@
+{{/* Copyright (C) 2000 ZeroDream */}}
+{{/* https://github.com/zero-dream */}}
+
+{{ $image := .image }}
+{{ $slice := .slice }}
+{{ $return := slice }}
+
+{{ $metas := partial "funcs/image/get-meta.html" (dict "image" $image "format" "display") }}
+{{ with $metas }}
+	{{ range $slice }}
+		{{ $keys := split .key "." }}
+		{{ $value := .value }}
+		{{ with index $metas $keys }}
+			{{ $return = $return | append (printf $value .) }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ return $return }}
