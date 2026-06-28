@@ -1,4 +1,6 @@
 @use "abstracts/styles";
+@use "abstracts/variables" as vars;
+
 @use "photoswipe/photoswipe";
 
 .pswp {
@@ -72,6 +74,24 @@
 .pswp__button--arrow .pswp__icn {
   top: 0;
   margin-top: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.pswp__button--arrow--prev {
+  display: none;
+
+  @media (min-width: vars.$breakpoint-sm) {
+    display: inline;
+  }
+}
+
+.pswp__button--arrow--next {
+  display: none;
+
+  @media (min-width: vars.$breakpoint-sm) {
+    display: inline;
+  }
 }
 
 .pswp__button--arrow--next .pswp__icn {
