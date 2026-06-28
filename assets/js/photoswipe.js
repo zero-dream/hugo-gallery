@@ -27,7 +27,7 @@ if (galleryEl) {
   if (params.enableDownload) {
     lightbox.on("uiRegister", () => {
       lightbox.pswp.ui.registerElement({
-        name: "download-button",
+        name: "download",
         order: 8,
         isButton: true,
         tagName: "a",

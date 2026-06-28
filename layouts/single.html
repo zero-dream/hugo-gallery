@@ -1,10 +1,8 @@
 {{ define "main" }}
 {{ partial "components/title.html" . }}
+{{ with .Content }}{{ partial "components/prose.html" . }}{{ end }}
 {{ partial "components/gallery.html" . }}
 {{ partial "components/related.html" . }}
-{{ with .Content }}
-	{{ partial "components/prose.html" . }}
-{{ end }}
 {{ end }}
 
 {{ define "head-assets" }}
