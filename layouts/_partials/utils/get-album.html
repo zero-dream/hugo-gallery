@@ -15,8 +15,12 @@
 		{{ $imageCount = len $galleries }}
 	{{ else }}
 		{{ range partial "utils/filter-pages.html" .RegularPagesRecursive }}
-			{{ $albumCount = add $albumCount 1 }}
-			{{ $imageCount = add $imageCount (len (partial "utils/filter-resources.html" (.Resources.ByType "image"))) }}
+			{{ $galleries := partial "utils/get-gallery.html" . }}
+			{{ $galleriesLen := len $galleries }}
+			{{ if gt $galleriesLen 0 }}
+				{{ $albumCount = add $albumCount 1 }}
+				{{ $imageCount = add $imageCount $galleriesLen }}
+			{{ end }}
 		{{ end }}
 	{{ end }}
 
