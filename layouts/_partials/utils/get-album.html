@@ -1,9 +1,9 @@
 {{ $album := dict }}
 
 {{ $resources := .Resources.ByType "image" }}
-{{ $images := partial "utils/filter-resources.html" $resources }}
-{{ if gt (len $images) 0 }}
-	{{ $cover := index $images 0 }}
+{{ $galleries := partial "utils/get-gallery.html" . }}
+{{ if gt (len $galleries) 0 }}
+	{{ $cover := (index $galleries 0).image }}
 	{{ range first 1 (where $resources "Params.cover" "==" true) }}
 		{{ $cover = . }}
 	{{ end }}
@@ -12,7 +12,7 @@
 	{{ $albumCount := 0 }}
 	{{ $imageCount := 0 }}
 	{{ if .IsPage }}
-		{{ $imageCount = len $images }}
+		{{ $imageCount = len $galleries }}
 	{{ else }}
 		{{ range partial "utils/filter-pages.html" .RegularPagesRecursive }}
 			{{ $albumCount = add $albumCount 1 }}
