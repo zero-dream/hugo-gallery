@@ -23,6 +23,11 @@ params:
         - { key: "Exif.ExposureCompensation", value: "%v ev" }
         - { key: "Exif.FNumber", value: "f %v" }
         - { key: "Exif.ExposureTime", value: "%v s" }
+      enableFileInfo: true
+      fileInfoData:
+        - { key: "Title", value: "Title: %v" }
+        - { key: "Date", value: "Date1: %v" }
+        - { key: "Params.date", value: "Date2: %v" }
     justified:
       gutterH: 10
       gutterV: 10

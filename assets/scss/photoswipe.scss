@@ -116,7 +116,7 @@
   right: 0;
 }
 
-.pswp__pswp-caption {
+.pswp__bottom-bar {
   @extend %blur-11;
   pointer-events: none !important;
   position: fixed;
@@ -124,6 +124,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: var(--gap-2);
@@ -132,4 +133,24 @@
   font-size: var(--text-font-size-xs);
   line-height: var(--text-line-height-xs);
   padding: var(--gap-1);
+
+  & > .bar-caption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-2);
+  }
+
+  & > .bar-fileinfo {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
+    gap: var(--gap-2);
+    overflow: hidden;
+    transition:
+      opacity 0.3s ease-in,
+      max-height 0.3s ease-in,
+      visibility 0.3s ease-in;
+  }
 }

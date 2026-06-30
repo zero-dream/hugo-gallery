@@ -1,6 +1,8 @@
 <section class="fj-gallery hidden" id="gallery">
 	{{ $enableCaption := $.Param "gallery.photoSwipe.enableCaption" }}
 	{{ $captionData := $.Param "gallery.photoSwipe.captionData" }}
+	{{ $enableFileInfo := $.Param "gallery.photoSwipe.enableFileInfo" }}
+	{{ $fileInfoData := $.Param "gallery.photoSwipe.fileInfoData" }}
 	{{ $thumbnailSpec := $.Param "gallery.imageSpec.thumbnail" }}
 	{{ $lightboxSpec := $.Param "gallery.imageSpec.lightbox" }}
 
@@ -34,11 +36,24 @@
 				<div class="gallery-caption"><span>{{ $title }}</span></div>
 				{{ if $enableCaption }}
 					<div class="hidden pswp-caption">
-						{{ with partial "funcs/image/parse-meta.html" (dict "image" $image "data" $captionData) }}
-							{{ range . }}<span>{{ . }}</span>{{ end }}
-						{{ else }}
-							<span>None</span>
-						{{ end }}
+						<div class="bar-caption">
+							{{ with partial "funcs/image/parse-meta.html" (dict "image" $downImage "data" $captionData) }}
+								{{ range . }}<span>{{ . }}</span>{{ end }}
+							{{ else }}
+								<span>None</span>
+							{{ end }}
+						</div>
+					</div>
+				{{ end }}
+				{{ if $enableFileInfo }}
+					<div class="hidden pswp-fileinfo">
+						<div class="bar-fileinfo">
+							{{ with partial "funcs/image/parse-meta.html" (dict "image" $image "data" $fileInfoData) }}
+								{{ range . }}<div>{{ . }}</div>{{ end }}
+							{{ else }}
+								<span>None</span>
+							{{ end }}
+						</div>
 					</div>
 				{{ end }}
 				<meta itemprop="caption" content="{{ $title }}" />

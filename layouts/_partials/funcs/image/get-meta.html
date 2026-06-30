@@ -8,6 +8,9 @@
 {{ if reflect.IsImageResourceWithMeta $image }}
 	{{/* hugo v0.162.0 */}}
 	{{ $metas := (dict
+		"Title" $image.Title
+		"Params" $image.Params
+
 		"Date" $image.Meta.Date
 		"Lat" $image.Meta.Lat
 		"Long" $image.Meta.Long
