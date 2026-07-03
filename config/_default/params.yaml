@@ -42,6 +42,11 @@ params:
       lightbox: "fit 1600x1600"
 
   # site.Params
+  customAdv:
+    displayKind:
+      home: true
+      section: true
+      page: true
   imageSpec:
     rssCover: "fill 900x600"
     featured: "fit 1600x1600"

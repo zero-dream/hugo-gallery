@@ -1,0 +1,21 @@
+{{ with site.Params.customAdv.displayKind }}
+	{{ $isDisplay := false }}
+	{{ if $.IsHome }}
+		{{ with .home }}
+			{{ $isDisplay = true }}
+		{{ end }}
+	{{ else if $.IsSection }}
+		{{ with .section }}
+			{{ $isDisplay = true }}
+		{{ end }}
+	{{ else if $.IsPage }}
+		{{ with .page }}
+			{{ $isDisplay = true }}
+		{{ end }}
+	{{ end }}
+	{{ if $isDisplay }}
+		{{ with partial "common/custom-adv.html" $ }}
+			<section class="adv">{{ . }}</section>
+		{{ end }}
+	{{ end }}
+{{ end }}
