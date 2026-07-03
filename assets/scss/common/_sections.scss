@@ -234,3 +234,11 @@ body > main > section.terms {
     }
   }
 }
+
+body > main > section.adv {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-2);
+}

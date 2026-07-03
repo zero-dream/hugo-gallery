@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ partial "common/adv.html" . }}
 {{ partial "components/title.html" . }}
 {{ with .Content }}{{ partial "components/prose.html" . }}{{ end }}
 <section class="albums">
