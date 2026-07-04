@@ -53,6 +53,7 @@ params:
     y: 0.5
 
   # site.Params
+  relatedLimit: 3
   customAdv:
     displayKind:
       home: true
