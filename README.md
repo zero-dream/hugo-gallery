@@ -506,9 +506,11 @@ related:
 
 ## Custom
 
+**Note:** Empty files or files that end up empty after building will be excluded.
+
 ### Custom Head
 
-You can add additional `head` elements in `layouts/_partials/common/head-custom.html`.
+You can add additional `head` elements in `layouts/_partials/common/custom-head.html`.
 
 ### Custom SCSS
 

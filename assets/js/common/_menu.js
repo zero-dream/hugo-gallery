@@ -37,5 +37,3 @@ if (toggleEl) {
     }
   });
 }
-
-export {};

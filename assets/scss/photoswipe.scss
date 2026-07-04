@@ -2,7 +2,7 @@
 @use "abstracts/scrollbar";
 @use "abstracts/variables" as vars;
 
-@use "photoswipe/photoswipe";
+@use "../lib/photoswipe/photoswipe";
 
 .pswp {
   --pswp-bg: #{"rgb(30 30 30 / 100%)"};
