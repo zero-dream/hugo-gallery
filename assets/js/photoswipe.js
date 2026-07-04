@@ -1,6 +1,6 @@
 import params from "@params";
-import PhotoSwipeLightbox from "../lib/photoswipe/photoswipe-lightbox.esm.js";
-import PhotoSwipe from "../lib/photoswipe/photoswipe.esm.js";
+import PhotoSwipeLightbox from "lib/photoswipe/photoswipe-lightbox.esm.js";
+import PhotoSwipe from "lib/photoswipe/photoswipe.esm.js";
 
 const galleryEl = document.getElementById("gallery");
 

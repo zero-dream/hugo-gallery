@@ -34,5 +34,3 @@ if (toggleEl) {
     }
   });
 }
-
-export {};
