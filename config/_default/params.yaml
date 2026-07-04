@@ -42,6 +42,7 @@ params:
       lightbox: "fit 1600x1600"
 
   # site.Params
+  relatedLimit: 3
   customAdv:
     displayKind:
       home: true
