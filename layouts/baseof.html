@@ -3,7 +3,7 @@
 	<head>
 		{{ partial "common/head.html" . }}
 		{{ block "head-assets" . }}{{ end }}
-		{{ partial "common/head-custom.html" . }}
+		{{ with partial "common/custom-head.html" . }}{{ . }}{{ end }}
 	</head>
 	<body>
 		{{ block "header" . }}{{ partial "common/header.html" . }}{{ end }}

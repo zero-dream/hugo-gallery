@@ -2,9 +2,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{{ with .Title }}{{ . }} -{{ end }} {{ .Site.Title }}</title>
 <link rel="canonical" href="{{ .Permalink }}" />
-<link rel="icon" type="image/svg+xml" href="{{ "images/favicon.svg" | relURL }}" />
-<link rel="icon" type="image/png" href="{{ "images/favicon.png" | relURL }}" />
-<link rel="apple-touch-icon" sizes="180x180" href="{{ "images/apple-touch-icon.png" | relURL }}" />
+<link rel="icon" type="image/svg+xml" href="{{ relURL (printf "%s/favicons/favicon.svg" hugo.Data.config.publishDir) }}" />
+<link rel="icon" type="image/png" href="{{ relURL (printf "%s/favicons/favicon.png" hugo.Data.config.publishDir) }}" />
+<link rel="apple-touch-icon" sizes="180x180" href="{{ relURL (printf "%s/favicons/apple-touch-icon.png" hugo.Data.config.publishDir) }}" />
+
 <meta name="description" content="{{ with .Description }}{{ . | markdownify | plainify }}{{ else }}{{ with site.Params.description }}{{ . | markdownify | plainify }}{{ end }}{{ end }}" />
 
 {{ if $.Params.keywords }}
