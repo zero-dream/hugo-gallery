@@ -22,7 +22,7 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 - Dark color scheme
 - Theme toggle
 - Responsive design
-- Image lazysizes
+- Image lazy loading
 
 - Blur effect
 - Top navigation bar pinned
@@ -33,7 +33,6 @@ This project is developed based on [nicokaiser/hugo-theme-gallery](https://githu
 
 - Justified images gallery with [nk-o/flickr-justified-gallery](https://github.com/nk-o/flickr-justified-gallery)
 - Photoswipe and lightbox with [dimsemenov/photoswipe](https://github.com/dimsemenov/photoswipe)
-- Lazy loader for images with [aFarkas/lazysizes](https://github.com/aFarkas/lazysizes)
 
 - Prose typography with [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
 - Some css with [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
