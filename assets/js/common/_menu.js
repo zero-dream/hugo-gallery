@@ -17,8 +17,11 @@ if (toggleEl) {
       menuEl.style.transform = "translateY(-20%)";
       menuEl.style.visibility = "hidden";
       menuEl.addEventListener("transitionend", function handler(e) {
-        menuEl.removeEventListener("transitionend", handler);
-        menuEl.style.display = "none";
+        const computed = getComputedStyle(menuEl).maxHeight;
+        if (computed === "0px") {
+          menuEl.removeEventListener("transitionend", handler);
+          menuEl.style.display = "none";
+        }
       });
     } else {
       bodyEl.style.overflow = "hidden";
