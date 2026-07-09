@@ -276,7 +276,7 @@ cascade:
       publishResources: true
 ```
 
-### Download Image
+### Download
 
 **Support:** cascade;
 
@@ -288,7 +288,7 @@ Explicitly set whether the download function is enabled.
 
 ```yaml
 params:
-  downImage:
+  download:
     enable: true
     imageSpec: "fit 3200x3200"
 ```
