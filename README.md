@@ -113,7 +113,7 @@ content/
 ├── about.md            <-- not listed in album list
 ├── animals/
 │   ├── _index.md
-│   ├── cover.jpeg      <-- animals album cover (must)
+│   ├── cover.jpeg      <-- animals album cover (optional)
 │   ├── cats/
 │   |   ├── index.md
 │   |   ├── cat1.jpeg   <-- cats album cover (first)
@@ -133,8 +133,8 @@ content/
 - `/about.md`: Not a page bundle and does not have image resources. It is not displayed in the album list.
 - `/animals`: A branch bundle (has `_index.md` and has children) => Displayed as album list (`list` layout).
 - `/nature`: A leaf bundle (has `index.md` and no children) => Displayed as gallery (`single` layout).
-- The list page must have an image.
-- Albums without an image are not shown.
+- If the album folder has no images, use the cover of the first sub-album.
+- Albums without a cover will not show up.
 
 ### Lightbox Action
 
@@ -236,7 +236,9 @@ params:
 
 ### Album Cover
 
-By default, the cover image of an album is the first image in its folder. To select a specific image (which must be part of the album), use the `cover` resource parameter in the front matter:
+By default, the cover image of an album is the first image in its folder.
+
+To select a specific image (which must be part of the album), use the `cover` resource parameter in the front matter:
 
 ```yaml
 ---
