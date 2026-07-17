@@ -1,0 +1,81 @@
+/*! tailwindcss v4.3.1 | MIT License | https://tailwindcss.com */
+
+// max-width
+
+@mixin max-w-xs {
+  max-width: 20rem;
+}
+
+@mixin max-w-sm {
+  max-width: 24rem;
+}
+
+@mixin max-w-md {
+  max-width: 28rem;
+}
+
+@mixin max-w-lg {
+  max-width: 32rem;
+}
+
+@mixin max-w-xl {
+  max-width: 36rem;
+}
+
+@mixin max-w-2xl {
+  max-width: 42rem;
+}
+
+@mixin max-w-3xl {
+  max-width: 48rem;
+}
+
+@mixin max-w-4xl {
+  max-width: 56rem;
+}
+
+@mixin max-w-5xl {
+  max-width: 64rem;
+}
+
+@mixin max-w-6xl {
+  max-width: 72rem;
+}
+
+@mixin max-w-7xl {
+  max-width: 80rem;
+}
+
+// border-radius
+
+@mixin rounded-xs {
+  border-radius: 0.125rem;
+}
+
+@mixin rounded-sm {
+  border-radius: 0.25rem;
+}
+
+@mixin rounded-md {
+  border-radius: 0.375rem;
+}
+
+@mixin rounded-lg {
+  border-radius: 0.5rem;
+}
+
+@mixin rounded-xl {
+  border-radius: 0.75rem;
+}
+
+@mixin rounded-2xl {
+  border-radius: 1rem;
+}
+
+@mixin rounded-3xl {
+  border-radius: 1.5rem;
+}
+
+@mixin rounded-4xl {
+  border-radius: 2rem;
+}
