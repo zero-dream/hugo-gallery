@@ -11,10 +11,17 @@ const defaultTheme = params.defaultTheme;
 
 // Window
 
-window.hugoGallery = {};
-window.hugoGallery.buildTime = buildTime;
-window.hugoGallery.defaultTheme = defaultTheme;
-window.hugoGallery.themeList = themeList;
+window.zeroTmpVar = {};
+
+zeroGallery = window.zeroGallery = {};
+zeroGallery.buildTime = buildTime;
+zeroGallery.defaultTheme = defaultTheme;
+zeroGallery.themeList = themeList;
+
+// Modal
+
+zeroGallery.modal = {};
+zeroGallery.modal.list = {};
 
 // ClearLocalStorage
 
@@ -27,12 +34,12 @@ if (prevBuildTime < buildTime) {
 // SetTheme
 const htmlEl = document.documentElement;
 const setTheme = (theme) => {
-  window.hugoGallery.currTheme = theme;
+  zeroGallery.currTheme = theme;
   localStorage.setItem("currTheme", theme);
   htmlEl.classList.remove(...themeList);
   htmlEl.classList.add(theme);
 };
-window.hugoGallery.setTheme = setTheme;
+zeroGallery.setTheme = setTheme;
 
 const currTheme = localStorage.getItem("currTheme") || defaultTheme;
 setTheme(currTheme);
@@ -50,10 +57,10 @@ const invertProse = (proseEl, theme) => {
   const isInvert = isInvertProse(theme);
   proseEl.classList.toggle("prose-invert", isInvert);
 };
-window.hugoGallery.invertProse = invertProse;
+zeroGallery.invertProse = invertProse;
 
 const invertProseAll = (theme) => {
   const proseEls = document.querySelectorAll(".prose");
   proseEls.forEach((el) => invertProse(el, theme));
 };
-window.hugoGallery.invertProseAll = invertProseAll;
+zeroGallery.invertProseAll = invertProseAll;

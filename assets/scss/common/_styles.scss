@@ -42,11 +42,6 @@ body > header > nav {
       .header-title {
         @include font.text-xl;
       }
-
-      .icon {
-        width: var(--size-icon-4);
-        height: var(--size-icon-4);
-      }
     }
   }
 }
@@ -138,7 +133,7 @@ body > main {
 
     & > ul {
       @extend %mini-scrollbar;
-      padding-bottom: var(--gap-1);
+      padding: var(--gap-1);
       display: flex;
       flex-flow: row nowrap;
       justify-content: safe center;
@@ -188,6 +183,11 @@ body > footer {
 
 .blur-02 {
   @extend %blur-2;
+}
+
+.icon {
+  width: var(--size-icon-4);
+  height: var(--size-icon-4);
 }
 
 hgroup {

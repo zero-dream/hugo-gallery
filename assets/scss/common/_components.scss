@@ -1,4 +1,8 @@
 @use "../../lib/tailwindcss/font" as font;
+@use "../../lib/tailwindcss/shadow" as shadow;
+
+@use "../abstracts/styles";
+@use "../abstracts/variables" as vars;
 
 .btn {
   @include font.text-sm;
@@ -18,24 +22,13 @@
   flex-flow: row nowrap;
   flex-shrink: 0;
 
-  height: 2.5rem;
-  padding-inline: 1rem;
-  border-radius: var(--border-radius-infinity);
-  border: 1px solid var(--color-btn-bg);
+  padding: var(--gap-1) var(--gap-2);
+  border-radius: var(--border-radius-1);
   background-color: var(--color-btn-bg);
-  outline-offset: 2px;
 
   transition-property: color, background-color, border-color, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-
-  &:hover {
-    background-color: var(--color-btn-hover);
-  }
-
-  &:active {
-    translate: 0 1px;
-  }
 
   &.btn-square {
     width: 2.5rem;
@@ -51,13 +44,110 @@
     border-radius: var(--border-radius-infinity);
   }
 
+  &.btn-pill {
+    border-radius: var(--border-radius-infinity);
+  }
+
   &.btn-text {
     background-color: transparent;
     border: none;
   }
 
+  &.btn-block {
+    width: 100%;
+  }
+
+  &:not(.no-hover):not([disabled]):hover {
+    background-color: var(--color-btn-hover);
+  }
+
+  &:not([disabled]):active {
+    translate: 0 1px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   &:focus-visible {
-    outline: none;
-    border: 2px solid var(--color-focus-border);
+    isolation: isolate;
+    outline: 2px solid var(--color-focus-outline);
+    outline-offset: 0;
+  }
+}
+
+.modal {
+  @extend %blur-modal;
+  user-select: none;
+  position: fixed;
+  inset: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  overflow-y: auto;
+
+  display: flex;
+  min-height: 100%;
+  justify-content: center;
+  text-align: center;
+  align-items: flex-end;
+  padding: var(--gap-2);
+
+  @media (min-width: vars.$breakpoint-sm) {
+    align-items: center;
+  }
+
+  &:not([open]) {
+    display: none;
+  }
+
+  & > .modal-box {
+    @include shadow.box-xl;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    text-align: center;
+    gap: var(--gap-3);
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-modal-bg);
+    width: 100%;
+    padding: var(--gap-2);
+
+    @media (min-width: vars.$breakpoint-sm) {
+      max-width: 32rem;
+    }
+
+    & > button.close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: var(--gap-1);
+    }
+
+    & > .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & > h3 {
+        @include font.text-lg;
+        @include font.bold;
+        text-align: center;
+      }
+    }
+
+    & > .modal-footer {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      gap: var(--gap-2);
+
+      & > * {
+        flex: 1;
+      }
+    }
   }
 }

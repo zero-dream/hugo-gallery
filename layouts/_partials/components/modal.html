@@ -1,0 +1,81 @@
+{{ $id := .id }}
+{{ $title := .title }}
+{{ $body := .body }}
+
+{{ $triggerText := .triggerText }}
+{{ $closeClick := .closeClick }}
+{{ $confirmClick := .confirmClick }}
+{{ $cancelClick := .cancelClick }}
+
+<script>
+	window.zeroTmpVar = window.zeroGallery.modal.list[{{ $id }}] = {};
+</script>
+
+{{ with $triggerText }}
+	<div class="modal-trigger">
+		<button class="btn trigger">
+			{{ . }}
+		</button>
+		<script>
+			window.zeroTmpVar.trigger = {};
+			window.zeroTmpVar.trigger.elem = document.currentScript.previousElementSibling;
+		</script>
+	</div>
+{{ end }}
+
+<dialog class="modal" id="{{ $id }}">
+	<script>
+		window.zeroTmpVar.modalEl = document.currentScript.parentElement;
+	</script>
+	<div class="modal-box">
+
+		{{ with $closeClick }}
+			<button class="close btn btn-circle btn-text no-hover" type="button">
+				<span class="icon">
+					{{ partial "icons/hero.html" (dict "name" "x-mark" "type" "outline") }}
+				</span>
+			</button>
+				<script>
+					window.zeroTmpVar.close = {};
+					window.zeroTmpVar.close.click = {{ partial "funcs/strings/split-escape.html" . }};
+					window.zeroTmpVar.close.elem = document.currentScript.previousElementSibling;
+				</script>
+		{{ end }}
+
+		<div class="modal-header">
+			<h3>{{ $title }}</h3>
+		</div>
+
+		<div class="modal-body">
+			{{ $body }}
+		</div>
+
+		<div class="modal-footer">
+			{{ with $cancelClick }}
+				<div>
+					<button class="cancel btn btn-block" type="button">
+						{{ T "cancelTitle" }}
+					</button>
+				<script>
+					window.zeroTmpVar.cancel = {};
+					window.zeroTmpVar.cancel.click = {{ partial "funcs/strings/split-escape.html" . }};
+					window.zeroTmpVar.cancel.elem = document.currentScript.previousElementSibling;
+				</script>
+				</div>
+			{{ end }}
+			{{ with $confirmClick }}
+				<div>
+					<button class="confirm btn btn-block" type="button">
+						{{ T "confirmTitle" }}
+					</button>
+				<script>
+					window.zeroTmpVar.confirm = {};
+					window.zeroTmpVar.confirm.click = {{ partial "funcs/strings/split-escape.html" . }};
+					window.zeroTmpVar.confirm.elem = document.currentScript.previousElementSibling;
+				</script>
+				</div>
+			{{ end }}
+		</div>
+
+	</div>
+</dialog>
