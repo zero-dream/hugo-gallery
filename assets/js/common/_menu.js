@@ -16,7 +16,7 @@ if (toggleEl) {
       menuEl.style.opacity = "0";
       menuEl.style.transform = "translateY(-20%)";
       menuEl.style.visibility = "hidden";
-      menuEl.addEventListener("transitionend", function handler(e) {
+      menuEl.addEventListener("transitionend", function handler(event) {
         const computed = getComputedStyle(menuEl).maxHeight;
         if (computed === "0px") {
           menuEl.removeEventListener("transitionend", handler);
