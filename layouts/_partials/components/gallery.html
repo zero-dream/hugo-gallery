@@ -1,4 +1,4 @@
-{{ with partial "utils/get-images.html" . }}
+{{ with partial "utils/get-images.html" $ }}
 	<section class="fj-gallery hidden" id="gallery">
 		{{ $publishResources := $.Param "build.publishResources" }}
 		{{ $enableDownload := $.Param "download.enable" }}

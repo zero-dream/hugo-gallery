@@ -1,4 +1,4 @@
-{{ $data := .data }}
+{{ $ctx := .ctx }}
 {{ $type := .type }}
 {{ $related := .related }}
 
@@ -6,18 +6,18 @@
 {{ if eq $type "related" }}
 	{{ $pages = $related }}
 {{ else }}
-	{{ $pages = $data.Pages }}
+	{{ $pages = $ctx.Pages }}
 {{ end }}
 
 {{ $pages = partial "utils/filter-pages.html" $pages }}
 {{ if eq $type "related" }}
-	{{ $relatedLimit := $data.Param "related.limit" }}
+	{{ $relatedLimit := $ctx.Param "related.limit" }}
 	{{ $pages = $pages | first $relatedLimit }}
 {{ end }}
 
 <section class="albums">
 	{{ range $page := $pages }}
-		{{ with partial "utils/get-album.html" (dict "data" $page "type" $type) }}
+		{{ with partial "utils/get-album.html" (dict "ctx" $page "type" $type) }}
 			{{ $thumbnailSpec := $page.Param "album.imageSpec.thumbnail" }}
 			{{ $thumbnail := .cover.Filter (slice images.AutoOrient (images.Process $thumbnailSpec)) }}
 			{{ $color := index $thumbnail.Colors 0 | default "transparent" }}

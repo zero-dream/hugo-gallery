@@ -1,2 +1,2 @@
-{{ $resources := where . "Params.hidden" "!=" true }}
+{{ $resources := where $ "Params.hidden" "!=" true }}
 {{ return $resources }}

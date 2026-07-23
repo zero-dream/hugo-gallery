@@ -1,6 +1,6 @@
 {{ define "main" }}
-{{ partial "components/title.html" . }}
-{{ range $taxonomy, $terms := .Site.Taxonomies }}
+{{ partial "components/title.html" $ }}
+{{ range $taxonomy, $terms := $.Site.Taxonomies }}
 	{{ if $terms }}
 		{{ $taxonomyPage := $.Site.GetPage (printf "/%s" $taxonomy) }}
 		<section class="terms">

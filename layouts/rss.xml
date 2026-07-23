@@ -46,7 +46,7 @@
 				{{ with $author.email }}<author>{{ . }}{{ with $author.name }} ({{ . }}){{ end }}</author>{{ end }}
 				<guid>{{ .Permalink }}</guid>
 
-				{{ $albumData := partial "utils/get-album.html" (dict "data" . "type" "rss") }}
+				{{ $albumData := partial "utils/get-album.html" (dict "ctx" . "type" "rss") }}
 				{{ $description := (.Params.description | default .Summary) | transform.XMLEscape | safeHTML }}
 				{{ if $albumData.cover }}
 					{{ $rssCoverSpec := site.Params.imageSpec.rssCover }}
