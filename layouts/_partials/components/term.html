@@ -1,5 +1,10 @@
+{{ $Term := .Term }}
+{{ $Page := .Page }}
+{{ $Count := .Count }}
+{{ $WeightedPages := .WeightedPages }}
+
 <a class="card-term" href="{{ .Page.RelPermalink }}">
-	<div class="card-title">{{ .Page.Title }}</div>
+	<div class="card-title">{{ .Page.LinkTitle }}</div>
 	<div class="card-body">
 		{{ .Count }} albums
 	</div>

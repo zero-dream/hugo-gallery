@@ -5,9 +5,9 @@
 		{{ range .Data.Terms.Alphabetical }}
 			{{ partial "components/term.html" (dict
 				"Term" .Term
-				"Pages" .Pages
-				"Count" .Count
-				"Page" .Page
+				"Page" .WeightedPages.Page
+				"Count" .WeightedPages.Count
+				"WeightedPages" .WeightedPages
 				)
 			}}
 		{{ end }}

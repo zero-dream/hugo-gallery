@@ -2,19 +2,17 @@
 {{ partial "components/title.html" $ }}
 {{ range $taxonomy, $terms := $.Site.Taxonomies }}
 	{{ if $terms }}
-		{{ $taxonomyPage := $.Site.GetPage (printf "/%s" $taxonomy) }}
 		<section class="terms">
 			<div class="terms-title">
-				<a href="{{ $taxonomyPage.RelPermalink }}">{{ $taxonomy | humanize | title }}</a>
+				<a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>
 			</div>
 			<div class="term-list">
-				{{ range $term, $weightedPages := $terms }}
-					{{ $pagePath := printf "/%s/%s" $taxonomy ($term | urlize) }}
+				{{ range $terms.Alphabetical }}
 					{{ partial "components/term.html" (dict
-						"Term" $term
-						"Pages" $weightedPages
-						"Count" (len $weightedPages)
-						"Page" ($.Site.GetPage $pagePath)
+						"Term" .Term
+						"Page" .WeightedPages.Page
+						"Count" .WeightedPages.Count
+						"WeightedPages" .WeightedPages
 						)
 					}}
 				{{ end }}
