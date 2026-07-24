@@ -8,7 +8,7 @@ params:
     imageSpec: "fit 3200x3200"
   album:
     imageSpec:
-      thumbnail: "fit 1200x1200"
+      thumbnail: "fill 1200x1200"
   image:
     sort:
       - { key: "params.weight", order: "asc" }
@@ -39,16 +39,16 @@ params:
       rowHeight: 320
       rowHeightTolerance: 0.25
     imageSpec:
-      thumbnail: "fit 600x600"
-      lightbox: "fit 1600x1600"
+      thumbnail: "fit 1200x1200"
+      lightbox: "fit 1920x1920"
   related:
     enable: true
     limit: 3
 
   # site.Params
   imageSpec:
-    rssCover: "fill 900x600"
-    featured: "fit 1600x1600"
-    openGraph: "fit 1600x1600"
+    rssCover: "fit 1200x1200"
+    openGraph: "fill 1200x630"
+    featured: "fill 1600x900"
   cssBuild:
     target: ["chrome115", "edge115", "firefox116", "ios16.4", "opera101", "safari16.4"]
