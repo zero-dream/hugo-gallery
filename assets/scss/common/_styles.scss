@@ -1,7 +1,10 @@
+@use "../../lib/tailwindcss/sizes" as sizes;
 @use "../../lib/tailwindcss/fonts" as fonts;
 
 @use "../abstracts/styles";
 @use "../abstracts/scrollbars";
+
+@use "components";
 
 html {
   height: 100%;
