@@ -3,9 +3,11 @@
 
 /*! hugo-gallery | https://github.com/zero-dream/hugo-gallery */
 
+@use "sizes";
+@use "colors";
+
 @use "variables";
 @use "components";
-@use "sizes";
 
 @use "styles";
 @use "sections";

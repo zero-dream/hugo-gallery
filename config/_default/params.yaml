@@ -1,7 +1,4 @@
 params:
-  # General
-  defaultTheme: "auto" # Value: auto; light; dark;
-
   # .Param
   download:
     enable: true
@@ -9,12 +6,13 @@ params:
   album:
     imageSpec:
       thumbnail: "fill 1200x1200"
-  image:
-    sort:
-      - { key: "params.weight", order: "asc" }
-      - { key: "params.date", order: "desc" }
-      - { key: "title", order: "asc" }
-      - { key: "name", order: "asc" }
+  resources:
+    image:
+      sort:
+        - { key: "params.weight", order: "asc" }
+        - { key: "params.date", order: "desc" }
+        - { key: "title", order: "asc" }
+        - { key: "name", order: "asc" }
   gallery:
     photoSwipe:
       caption:
@@ -47,6 +45,8 @@ params:
 
   # site.Params
   theme:
+    color: "indigo"
+    scheme: "auto" # Value: auto; light; dark;
     font:
       sans:
         family: ["SourceSans3VF", "Source Han Sans VF"]
@@ -57,6 +57,9 @@ params:
   imageSpec:
     rssCover: "fit 1200x1200"
     openGraph: "fill 1200x630"
-    featured: "fill 1600x900"
+  featured:
+    enable: true
+    imageSpec:
+      thumbnail: "fill 1600x900"
   cssBuild:
     target: ["chrome115", "edge115", "firefox116", "ios16.4", "opera101", "safari16.4"]

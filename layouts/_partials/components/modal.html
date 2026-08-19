@@ -25,16 +25,16 @@
 	</div>
 {{ end }}
 
-<dialog class="modal" id="{{ $id }}">
+<dialog id="{{ $id }}" class="modal">
 	<script>
 		window.zeroTmp.var.modalEl = document.currentScript.parentElement;
 	</script>
 	<div class="modal-box {{ $modalSize }}">
 
 		{{ with $closeClick }}
-			<button class="close btn btn-circle btn-text no-hover" type="button">
+			<button class="close btn btn-circle btn-ghost" type="button">
 				<span class="icon">
-					{{ partial "icons/hero.html" (dict "name" "x-mark" "type" "outline") }}
+					{{ partial "icons/hero.html" (dict "name" "outline/x-mark" "type" "safeHTML") }}
 				</span>
 			</button>
 			<script>

@@ -23,7 +23,7 @@
 	}}
 {{ end }}
 
-{{ range $.Param "image.sort" | collections.Reverse }}
+{{ range $.Param "resources.image.sort" | collections.Reverse }}
 	{{ $images = sort $images .key .order }}
 {{ end }}
 

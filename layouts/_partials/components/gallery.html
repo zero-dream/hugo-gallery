@@ -1,6 +1,6 @@
 {{ $images := partial "utils/get-images.html" $ }}
 {{ with $images }}
-	<section class="fj-gallery hidden" id="gallery">
+	<section id="gallery" class="fj-gallery hidden">
 		{{ $publishResources := $.Param "build.publishResources" }}
 		{{ $enableDownload := $.Param "download.enable" }}
 		{{ $downImageSpec := $.Param "download.imageSpec" }}
@@ -51,9 +51,9 @@
 									<tbody>
 										<tr>
 											{{ $captionData := slice }}
-											{{ range $caption.data }}{{ $captionData = $captionData | append .format }}{{ end }}
+											{{ range $caption.items }}{{ $captionData = $captionData | append .format }}{{ end }}
 											{{ $captions := partial "funcs/images/parse-meta.html" (dict "image" $downImage "data" $captionData "default" "-") }}
-											{{ range $index, $value := $caption.data }}
+											{{ range $index, $value := $caption.items }}
 												{{ $caption := index $captions $index }}
 												<td style="min-width: {{ $value.minWidth }};">
 													<pre>{{ $caption }}</pre>
@@ -70,7 +70,7 @@
 						<div class="hidden pswp-fileinfo">
 							<div class="bar-fileinfo {{ if $fileInfo.firstBigger }}fileinfo-first-bigger{{ end }}">
 								{{ $fileInfoData := slice }}
-								{{ range $fileInfo.data }}{{ $fileInfoData = $fileInfoData | append .format }}{{ end }}
+								{{ range $fileInfo.items }}{{ $fileInfoData = $fileInfoData | append .format }}{{ end }}
 								{{ with partial "funcs/images/parse-meta.html" (dict "image" $downImage "data" $fileInfoData "default" "") }}
 									{{ range . }}<pre>{{ . }}</pre>{{ end }}
 								{{ else }}
